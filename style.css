@@ -1,0 +1,30 @@
+body {
+    padding-top: 20px;
+}
+
+#about {
+    text-align: center;
+}
+h2 {
+    font-family: 'Arial', sans-serif; /* Choisissez une police élégante */
+    color: #007bff; /* Couleur de titre (par exemple, bleu Bootstrap) */
+    text-align: center; /* Centrer les titres */
+    margin-bottom: 30px; /* Espace sous le titre */
+    padding-bottom: 10px; /* Espace au-dessus de la ligne */
+    border-bottom: 2px solid #007bff; /* Ligne sous le titre */
+    display: inline-block; /* Permet la bordure de s'adapter à la longueur du texte */
+    line-height: 1.2; /* Espacement des lignes */
+}
+
+/* Personnalisation pour les sections spécifiques si nécessaire */
+#skills h2 {
+    /* Styles spécifiques à la section Études et Compétences */
+}
+
+#contact h2 {
+    /* Styles spécifiques à la section Contact */
+}
+body {
+    background: linear-gradient(to bottom, rgb(173, 243, 246),rgb(240, 240, 240), rgb(190, 236, 236));
+    background-repeat: no-repeat;
+}
