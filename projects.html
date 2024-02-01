@@ -280,7 +280,35 @@
 }
 
 </style>
+<script>
+         /* configuration de la recherche */
+         document.querySelector('form[role="search"]').addEventListener("submit", function(event) {
+  event.preventDefault(); // Empêche l'envoi du formulaire
 
+  const searchTerm = document.querySelector('input[type="search"]').value.toLowerCase();
+  reorderContent(searchTerm);
+});
+
+function reorderContent(searchTerm) {
+  const container = document.querySelector('.row'); // Sélectionne le conteneur de vos éléments
+  let itemsArray = Array.from(container.children); // Crée un tableau à partir des éléments enfants de votre conteneur
+
+  // Trier les éléments en fonction de la correspondance avec les termes de recherche
+  itemsArray.sort(function(a, b) {
+    const aContent = a.textContent.toLowerCase();
+    const bContent = b.textContent.toLowerCase();
+    const aScore = searchTerm.split(' ').reduce((acc, curr) => acc + aContent.includes(curr), 0);
+    const bScore = searchTerm.split(' ').reduce((acc, curr) => acc + bContent.includes(curr), 0);
+
+    return bScore - aScore; // Trie par score décroissant
+  });
+
+  // Réappliquer les éléments au DOM dans le nouvel ordre
+  itemsArray.forEach(item => container.appendChild(item));
+}
+
+
+</script>
     <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

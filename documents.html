@@ -64,7 +64,7 @@ h2 {
                 <div class="container-fluid mt-5 mr-5">
                     <h2> Documents</h2>
                     <div class="row container-fluid">
-                    <ul>
+                    <ul class="documentsList">
                         <li id="container">
                             <p class="btn btn-outline-secondary"> <i class="text-danger" style="font: 1em sans-serif;-s:bold;"> 
                                 DEVOPS : </i> Plus de 110 Q/A pour un interview en DEVOPS ;  Written by By 
@@ -159,6 +159,34 @@ h2 {
 </footer>
     
 <script>
+       /* configuration de la recherche */
+       document.querySelector('form[role="search"]').addEventListener("submit", function(event) {
+  event.preventDefault(); // Empêche l'envoi du formulaire
+
+  const searchTerm = document.querySelector('input[type="search"]').value.toLowerCase();
+  reorderContent(searchTerm);
+});
+
+function reorderContent(searchTerm) {
+  const container = document.querySelector('.documentsList'); // Sélectionne le conteneur de vos éléments
+  let itemsArray = Array.from(container.children); // Crée un tableau à partir des éléments enfants de votre conteneur
+
+  // Trier les éléments en fonction de la correspondance avec les termes de recherche
+  itemsArray.sort(function(a, b) {
+    const aContent = a.textContent.toLowerCase();
+    const bContent = b.textContent.toLowerCase();
+    const aScore = searchTerm.split(' ').reduce((acc, curr) => acc + aContent.includes(curr), 0);
+    const bScore = searchTerm.split(' ').reduce((acc, curr) => acc + bContent.includes(curr), 0);
+
+    return bScore - aScore; // Trie par score décroissant
+  });
+
+  // Réappliquer les éléments au DOM dans le nouvel ordre
+  itemsArray.forEach(item => container.appendChild(item));
+}
+
+
+
 var isPdfVisible = false;
 
 function togglePdf(pdfUrl) {
