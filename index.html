@@ -265,21 +265,50 @@
 <section class="container mt-5">
   <h2>Contactez-moi</h2>
   <div>
-  <form>
+  <form id="formContact" method="POST">
       <div class="form-group">
           <label for="nom">Nom</label>
-          <input type="text" class="form-control" id="nom" placeholder="Entrez votre nom">
+          <input name="Nom" type="text" class="input form-control" id="nom" placeholder="Entrez votre nom">
       </div>
       <div class="form-group">
           <label for="email">Adresse email</label>
-          <input type="email" class="form-control" id="email" placeholder="Entrez votre email">
+          <input name="Email" type="email" class="input form-control" id="email" placeholder="Entrez votre email">
       </div>
       <div class="form-group">
           <label for="message">Message</label>
-          <textarea class="form-control" id="message" rows="3"></textarea>
+          <textarea    name="Message" class="input form-control" id="messagecontact" rows="3"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Envoyer</button>
+     
+      <div class="d-flex justify-content-start">
+        <div class="me-5"> <!-- Bootstrap 5 uses 'me-*' for margin end, 'mr-*' in Bootstrap 4 -->
+          <button class="btn btn-primary" type="submit" id="submit-button">
+            Sign Up
+          </button>
+        </div>
+        <div>
+          <button onclick="cancel()" class="btn btn-danger">
+            Cancel
+          </button>
+        </div>
+      </div>
+      
+
   </form>
+ 
+  <div
+  id="message"
+  style="
+    display: none;
+    margin: 20px;
+    font-weight: bold;
+    color: green;
+    padding: 8px;
+    background-color: beige;
+    border-radius: 4px;
+    border-color: aquamarine;
+  "
+></div>
+
 </div>
   <br>
   
@@ -364,6 +393,73 @@
   }
 
   </script>
+
+<script>
+  document.getElementById("formContact").addEventListener("submit", function (e) {
+    e.preventDefault(); // Prevent the default form submission
+    document.getElementById("message").textContent = "Submitting..";
+    document.getElementById("message").style.display = "block";
+    document.getElementById("submit-button").disabled = true;
+
+    // Collect the form data
+    var formData = new FormData(this);
+    var keyValuePairs = [];
+    for (var pair of formData.entries()) {
+      keyValuePairs.push(pair[0] + "=" + pair[1]);
+    }
+
+    var formDataString = keyValuePairs.join("&");
+
+    // Send a POST request to your Google Apps Script
+    fetch(
+      "https://script.google.com/macros/s/AKfycbxHWndEGBR891V6knwzvIdC1I8MZAuiKZEB40sPesVJzAdSeg1YFvNuL2kiKyPC7c9T/exec",
+      {
+        redirect: "follow",
+        method: "POST",
+        body: formDataString,
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8",
+        },
+      }
+    )
+      .then(function (response) {
+        // Check if the request was successful
+        if (response) {
+          return response; // Assuming your script returns JSON response
+        } else {
+          throw new Error("Failed to submit the form.");
+        }
+      })
+      .then(function (data) {
+        // Display a success message
+        document.getElementById("message").textContent =
+          "Data submitted successfully!";
+        document.getElementById("message").style.display = "block";
+        document.getElementById("message").style.backgroundColor = "green";
+        document.getElementById("message").style.color = "beige";
+        document.getElementById("submit-button").disabled = false;
+        document.getElementById("formContact").reset();
+
+        setTimeout(function () {
+          document.getElementById("message").textContent = "";
+          document.getElementById("message").style.display = "none";
+        }, 2600);
+      })
+      .catch(function (error) {
+        // Handle errors, you can display an error message here
+        console.error(error);
+        document.getElementById("message").textContent =
+          "An error occurred while submitting the form.";
+        document.getElementById("message").style.display = "block";
+      });
+
+
+      function cancel (error) { 
+        document.getElementById("form").reset();
+      }
+
+  });
+</script>
 
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
