@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://mortadabouzaffour.vercel.app/sitemap.xml
