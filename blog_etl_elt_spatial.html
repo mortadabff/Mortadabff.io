@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ETL vs ELT vs ETL spatiaux — Blog</title>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link href="style.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="index.html">BOUZAFFOUR Mortada</a>
+</nav>
+<main class="container mt-5">
+  <h1>ETL vs ELT vs ETL spatiaux : concepts et outils</h1>
+  <p>ETL (Extract, Transform, Load) et ELT (Extract, Load, Transform) sont deux architectures de traitement de données. En géospatial, les workflows ETL spatiaux incluent des étapes spécifiques : reprojection, géocodage, découpage, mosaïquage, et chargement en bases PostGIS.</p>
+
+  <h2>Outils ELT/ETL généraux courants</h2>
+  <ul>
+    <li>Talend (ETL), Pentaho (ETL), Apache NiFi (flux), Airflow (orchestration)</li>
+    <li>BigQuery / Snowflake (ELT dans le cloud), dbt (transformations SQL modernes)</li>
+  </ul>
+
+  <h2>Outils ETL spatiaux populaires</h2>
+  <ul>
+    <li>GDAL/OGR (transformations raster/vector)</li>
+    <li>FME (ETL spatial commercial)</li>
+    <li>GeoPandas + Python scripts pour pipelines légers</li>
+    <li>PostGIS (stockage et fonctions spatiales pour transformations)</li>
+  </ul>
+
+  <p>Choix dépend du volume, temps réel vs batch, et contraintes cloud/on-premise.</p>
+  <a class="btn btn-secondary" href="blog.html">Retour au blog</a>
+</main>
+</body>
+</html>

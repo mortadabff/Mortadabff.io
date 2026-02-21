@@ -1,27 +1,27 @@
 body {
     padding-top: 20px;
-    background: linear-gradient(180deg,#06202b 0%, #083044 100%);
-    color: #e6f3fb;
+    background: #ffffff;
+    color: #0b1720;
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
 h1, h2, h3, h4, h5 {
-    color: #e6f3fb;
+    color: #072033;
 }
 
 h2 {
     font-family: 'Inter', Arial, sans-serif;
-    color: #bfe9ff;
+    color: #0b3a4a;
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     padding-bottom: 6px;
-    border-bottom: 1px solid rgba(191,233,255,0.08);
+    border-bottom: 1px solid rgba(11,58,74,0.08);
     display: inline-block;
 }
 
 .navbar {
-    background: linear-gradient(90deg,#f5f6f7 0%, #ebedef 100%);
-    border-bottom: 1px solid rgba(11,27,38,0.06);
+    background: linear-gradient(90deg,#dfe6ea 0%, #ced6da 100%);
+    border-bottom: 1px solid rgba(11,27,38,0.08);
 }
 
 .navbar .navbar-brand,
@@ -38,29 +38,29 @@ h2 {
 }
 
 .card {
-    background: #072231;
-    border: 1px solid rgba(191,233,255,0.04);
-    color: #e6f3fb;
+    background: #f0f4f6;
+    border: 1px solid rgba(11,23,32,0.08);
+    color: #072033;
 }
 
 .card .card-body h4, .card .card-body h5 {
-    color: #e8f9ff;
+    color: #072033;
 }
 
 .btn-primary {
-    background: linear-gradient(90deg,#46b3ff,#8be6ff);
+    background: linear-gradient(90deg,#0b84ff,#2d7bd6);
     border: none;
-    color: #022032;
+    color: #ffffff;
 }
 
 .btn-info {
-    background: rgba(255,255,255,0.04);
-    color: #e6f3fb;
-    border: 1px solid rgba(255,255,255,0.03);
+    background: #f2f4f6;
+    color: #072033;
+    border: 1px solid rgba(11,23,32,0.06);
 }
 
 a {
-    color: #bfe9ff;
+    color: #0b4a63;
 }
 
 section {
@@ -99,6 +99,22 @@ footer.footer {
 /* Make details content readable */
 .A i {
     display: block;
-    color: #d7f2ff;
+    color: #274149;
     margin-bottom: 6px;
+}
+
+/* Resize images in academic and professional cards */
+#Parcours .card-img-top {
+    max-width: 140px;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 8px 0;
+}
+
+/* Ensure hero image remains a reasonable size */
+.rounded-circle {
+    width: 140px !important;
+    height: 140px !important;
 }
