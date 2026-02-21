@@ -1,30 +1,104 @@
 body {
     padding-top: 20px;
+    background: linear-gradient(180deg,#06202b 0%, #083044 100%);
+    color: #e6f3fb;
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
 }
 
-#about {
-    text-align: center;
+h1, h2, h3, h4, h5 {
+    color: #e6f3fb;
 }
+
 h2 {
-    font-family: 'Arial', sans-serif; /* Choisissez une police élégante */
-    color: #007bff; /* Couleur de titre (par exemple, bleu Bootstrap) */
-    text-align: center; /* Centrer les titres */
-    margin-bottom: 30px; /* Espace sous le titre */
-    padding-bottom: 10px; /* Espace au-dessus de la ligne */
-    border-bottom: 2px solid #007bff; /* Ligne sous le titre */
-    display: inline-block; /* Permet la bordure de s'adapter à la longueur du texte */
-    line-height: 1.2; /* Espacement des lignes */
+    font-family: 'Inter', Arial, sans-serif;
+    color: #bfe9ff;
+    text-align: center;
+    margin-bottom: 20px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid rgba(191,233,255,0.08);
+    display: inline-block;
 }
 
-/* Personnalisation pour les sections spécifiques si nécessaire */
-#skills h2 {
-    /* Styles spécifiques à la section Études et Compétences */
+.navbar {
+    background: linear-gradient(90deg,#f5f6f7 0%, #ebedef 100%);
+    border-bottom: 1px solid rgba(11,27,38,0.06);
 }
 
-#contact h2 {
-    /* Styles spécifiques à la section Contact */
+.navbar .navbar-brand,
+.navbar .nav-link {
+    color: #0b1720 !important;
 }
-body {
-    background: linear-gradient(to bottom, rgb(173, 243, 246),rgb(240, 240, 240), rgb(190, 236, 236));
-    background-repeat: no-repeat;
+
+.navbar .navbar-toggler {
+    border-color: rgba(11,27,38,0.08);
+}
+
+.navbar .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='%230b1720' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+}
+
+.card {
+    background: #072231;
+    border: 1px solid rgba(191,233,255,0.04);
+    color: #e6f3fb;
+}
+
+.card .card-body h4, .card .card-body h5 {
+    color: #e8f9ff;
+}
+
+.btn-primary {
+    background: linear-gradient(90deg,#46b3ff,#8be6ff);
+    border: none;
+    color: #022032;
+}
+
+.btn-info {
+    background: rgba(255,255,255,0.04);
+    color: #e6f3fb;
+    border: 1px solid rgba(255,255,255,0.03);
+}
+
+a {
+    color: #bfe9ff;
+}
+
+section {
+    padding-top: 22px;
+    padding-bottom: 22px;
+}
+
+/* Small adjustments for images */
+.rounded-circle {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+}
+
+/* Language switch styles and alignment */
+.navbar .lang-item {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+.lang-switch .btn {
+    font-weight: 600;
+    padding: 6px 10px;
+    color: #0b1720;
+    background: transparent;
+    border: 1px solid rgba(11,23,32,0.08);
+}
+.lang-switch .btn.active {
+    background: rgba(11,23,32,0.06);
+    color: #071122;
+}
+
+footer.footer {
+    background: transparent;
+    color: #bcd9ee;
+}
+
+/* Make details content readable */
+.A i {
+    display: block;
+    color: #d7f2ff;
+    margin-bottom: 6px;
 }

@@ -15,20 +15,28 @@
     <!-- Barre de navigation -->
   
      <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand " href="index.html">BOUZAFFOUR Mortada  </a>
+        <a class="navbar-brand " href="index.html">BOUZAFFOUR Mortada</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item ml-3">
-                    <a class="nav-link text-body" href="blog.html">Blog </a>
+            <a class="nav-link text-body" href="blog.html"><span id="nav_blog">Blog</span></a>
                 </li>
                 <li class="nav-item ml-3">
-                    <a class="nav-link text-body" href="projects.html">Projets</a>
+            <a class="nav-link text-body" href="projects.html"><span id="nav_projects">Projets</span></a>
                 </li>
                 <li class="nav-item ml-3">
-                    <a class="nav-link text-body" href="documents.html">Documents</a>
+            <a class="nav-link text-body" href="documents.html"><span id="nav_documents">Documents</span></a>
+                </li>
+                <li class="nav-item ml-auto lang-item">
+                  <div class="nav-link p-0">
+                    <div class="lang-switch btn-group btn-group-sm" role="group" aria-label="Language switch">
+                      <button id="btn-fr" class="btn btn-outline-light active">FR</button>
+                      <button id="btn-en" class="btn btn-outline-light">EN</button>
+                    </div>
+                  </div>
                 </li>
                 
             </ul>
@@ -40,12 +48,12 @@
 <section id="home" class="container-fluid text-center" >
   <div class="row align-items-center min-vh-100">
       <div class="col">
-        <h1>Bienvenue sur mon Portfolio</h1>
+        <h1 id="hero_title">Bienvenue sur mon Portfolio</h1>
           <img src="Ressources/image_back_blanc.png" alt="Ma photo" class="rounded-circle" style="width:20%;height:20% ;border:3px solid rgb(0, 60, 224)">
           <br> <br><h3>Je suis BOUZAFFOUR  Mortada, étudiant en 3ème année à l'ENSG-géomatique</h3>
-              <p > Domaines d'intérêt : Génie logiciel / SIG  / Géodata Science  </p><br>
-             <a class="btn btn-info" href="Ressources/Mortada_BOUZAFFOUR_cv_09_2025.pdf" target="_blank">Voir mon CV </a> 
-             <a class="btn btn-info me-2" href="https://www.linkedin.com/in/mortada-bouzaffour-1b0741219/" target="_blank">Linkedin</a> 
+              <p id="hero_sub">Domaines d'intérêt : Génie logiciel / SIG / Géodata Science</p><br>
+             <a id="cv_link" class="btn btn-info" href="Ressources/Mortada_BOUZAFFOUR_cv_09_2025.pdf" target="_blank">Voir mon CV</a>
+             <a class="btn btn-info me-2" href="https://www.linkedin.com/in/mortada-bouzaffour-1b0741219/" target="_blank">Linkedin</a>
 
              <ul class="list-unstyled">
              
@@ -60,7 +68,7 @@
 <!---->
 <!-- Section Parcours académiques  -->
 <section id="Parcours" class="container mt-5">
-  <h2>Parcours académique</h2>
+  <h2 id="acad_title">Parcours académique</h2>
     <div class="row">
         <!-- ENSG 3ème année Géomaticien -->
     <div class="col-md-4 mt-5">
@@ -211,10 +219,10 @@
 
 <!-- Section  Compétences -->
 <section id="hardSkills" class="container mt-5">
-  <h2>Compétences et connaissances</h2>
+  <h2 id="skills_title">Compétences et connaissances</h2>
   <h6>Mon parcours académique, les projets réalisés et mes expériences personnelles m'ont permis d'acquerir plusieurs compétences techniques  et fonctionnelles : en ingénierie , en développement logiciel, en SIG, etc.</h6>
  
-    <h5> Compétences fonctionnelles</h5>
+    <h5 id="func_title">Compétences fonctionnelles</h5>
     <ul>
     <li> Conception des systèmes informatiques</li>
     <li> Le développement de solutions SIG</li>
@@ -223,16 +231,15 @@
     <li> Les bases des sciences géomatiques : géodésie, topographie, SIG ,Modélisation Mathématique...  </li>
   </ul>
   
-  <h5> Compétences techniques (Hard Skillls)</h5>
-  <ul>
-    <li> Maîtrise de logiciels : ArcGis , Qgis, SqlServer, Eclipse, VS code, Visual Studio</li>
-  <li> Langage de programmation / web  : HTML5, CSS , JS , C , Java , JEE , Python , PHP</li>
-  <li> Traitement de données : SQL , PLSQL , POTGRESQL( postgis) , Oracle DB ,SQLServer, MySQL</li>
-  <li> Experience avancée avec les framworks : Bootstrap, Angular, Spring Boot , Spring AI </li>
-  <li> Experience avec les framworks :  Swing (Java dekstop), FlightPhp, VueJs, ASP.NET Core </li>
-  <li> Développement SIG : Python (Arcpy), ARCGIS SDK for JS ,ARCGIS Experience Builder, Leaflet , OpenLayers, Cesium3D </li>
-  <li> Serveur  SIG : Arcgis Server, Geoserver </li>
-  <li> Outils de Modélisation  : UML, BPMN   </li>
+  <h5 id="tech_title">Compétences techniques (Hard Skills)</h5>
+  <ul id="tech_list">
+    <li>SIG & Cartographie : QGIS, ArcGIS Pro, Cartographie thématique, Webmapping (Leaflet, OpenLayers)</li>
+    <li>Bases de données géospatiales : PostgreSQL / PostGIS, Spatial SQL, intégration ETL (GDAL)</li>
+    <li>Langages & traitement : Python (pandas, geopandas), SQL, Bash</li>
+    <li>Serveurs & outils géo : GeoServer, MapServer, GDAL/OGR</li>
+    <li>Télédétection : traitement d'images satellite (Sentinel, Landsat), analyses raster</li>
+    <li>Webmapping & visualisation : Leaflet, Mapbox GL, dashboards</li>
+    <li>Dev & déploiement : Git, Docker, CI basique, Linux</li>
   </ul>
 
   <h5> Compétences comportementales (Soft Skills) :</h5>
@@ -248,8 +255,29 @@
 
 <!--  Section Activitées parascolaire et expérience professionnelles -->
 <section id="Parcours" class="container mt-5">
-  <h2>Activités parascolaires et professionnelles</h2>
+  <h2 id="activity_title">Activités parascolaires et professionnelles</h2>
     <div class="row">
+
+       <!-- Alternance : Malink / Veolia (insérée avant Modelis) -->
+      <div class="col-md-4 mt-5">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Malink — Consultant en géomatique (alternance)</h4>
+            <h5 class="card-text">Client : Veolia Eau France — 10/2025 – en cours</h5>
+            <ul class="A" style="display: none;">
+              <li>
+                <h6>Missions :</h6>
+                <i>- Déploiement et maintien d'outils SIG pour la gestion réseau d'eau chez Veolia.</i>
+                <i>- Traitement et intégration de données spatiales (PostGIS, GDAL).</i>
+                <i>- Création de cartes et tableaux de bord pour le suivi opérationnel.</i>
+                <i>- Support aux équipes terrain et automatisation de flux de données (Python, QGIS).</i>
+              </li>
+            </ul>
+            <br>
+            <button onclick="toggleDetails2(this)" class="btn btn-primary">Détails</button>
+          </div>
+        </div>
+      </div>
 
        <!-- Stage d'ingénieur 2 : Modelis france -->
       <div class="col-md-4 mt-5">
@@ -577,7 +605,57 @@
 
   });
 </script>
+  <!-- Traduction FR/EN et bascule langue -->
+  <script>
+    const translations = {
+      fr: {
+        nav_blog: 'Blog',
+        nav_projects: 'Projets',
+        nav_documents: 'Documents',
+        hero_title: 'Bienvenue sur mon Portfolio',
+        hero_sub: "Domaines d'intérêt : Génie logiciel / SIG / Géodata Science",
+        cv_link: 'Voir mon CV',
+        acad_title: 'Parcours académique',
+        skills_title: 'Compétences et connaissances',
+        func_title: 'Compétences fonctionnelles',
+        tech_title: 'Compétences techniques (Hard Skills)',
+        activity_title: 'Activités parascolaires et professionnelles',
+        alt_title: 'Alternance / Apprenticeship'
+      },
+      en: {
+        nav_blog: 'Blog',
+        nav_projects: 'Projects',
+        nav_documents: 'Documents',
+        hero_title: 'Welcome to my Portfolio',
+        hero_sub: 'Interests: Software Engineering / GIS / Geodata Science',
+        cv_link: 'View my CV',
+        acad_title: 'Academic background',
+        skills_title: 'Skills and knowledge',
+        func_title: 'Functional skills',
+        tech_title: 'Technical skills (Hard Skills)',
+        activity_title: 'Extracurricular & professional activities',
+        alt_title: 'Apprenticeship'
+      }
+    };
 
+    function setLang(lang) {
+      const map = translations[lang] || translations.fr;
+      for (const key in map) {
+        const el = document.getElementById(key);
+        if (el) el.textContent = map[key];
+      }
+      // toggle button active state
+      document.getElementById('btn-fr').classList.toggle('active', lang === 'fr');
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.documentElement.lang = lang === 'fr' ? 'fr' : 'en';
+    }
+
+    document.getElementById('btn-fr').addEventListener('click', () => setLang('fr'));
+    document.getElementById('btn-en').addEventListener('click', () => setLang('en'));
+
+    // init
+    setLang(document.documentElement.lang === 'en' ? 'en' : 'fr');
+  </script>
 
     <!-- Bootstrap JS, Popper.js, and jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
