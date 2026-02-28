@@ -1,31 +1,574 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GeoAI — Blog</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GeoAI : IA et données géospatiales — Blog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #2c3e50 !important;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50px 50px;
+        }
+        .article-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        .article-meta i {
+            margin-right: 5px;
+        }
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .main-content h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #6f42c1;
+        }
+        .main-content h2:first-of-type {
+            margin-top: 0;
+        }
+        .main-content h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .main-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .main-content p.lead {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #555;
+        }
+        
+        /* Cartes techniques */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .tech-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .tech-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #6f42c1, #e83e8c);
+        }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(111,66,193,0.1);
+        }
+        .tech-card h4 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .tech-card h4 i {
+            color: #6f42c1;
+            margin-right: 8px;
+        }
+        .tech-badge {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            background: #e9ecef;
+            color: #495057;
+            margin-top: 1rem;
+        }
+        
+        /* Cartes architecture */
+        .arch-card {
+            background: linear-gradient(135deg, #6f42c1 0%, #e83e8c 100%);
+            color: white;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .arch-card h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 1rem;
+        }
+        .arch-card ul li {
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Cartes enjeux */
+        .challenge-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .challenge-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #dc3545;
+        }
+        .challenge-card h5 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .challenge-card h5 i {
+            color: #dc3545;
+            margin-right: 8px;
+        }
+        
+        /* Timeline d'évolution */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+        .timeline-item {
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 3rem;
+        }
+        .timeline-item::before {
+            content: '\f0e7';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 1rem;
+            color: #6f42c1;
+            font-size: 1.2rem;
+        }
+        
+        /* Tableau applications */
+        .app-table {
+            margin: 2rem 0;
+        }
+        .app-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .app-table th {
+            background: #6f42c1;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        .app-table td {
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+        }
+        .app-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        /* Boîte outils */
+        .tool-box {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+            border: 1px solid #dee2e6;
+        }
+        .tool-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        .tool-tag {
+            background: white;
+            border: 1px solid #6f42c1;
+            color: #6f42c1;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .tool-tag:hover {
+            background: #6f42c1;
+            color: white;
+        }
+        
+        .btn-retour {
+            background: #6f42c1;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 2rem;
+        }
+        .btn-retour:hover {
+            background: #5a32a3;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(111,66,193,0.4);
+        }
+        .btn-retour i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.html">BOUZAFFOUR Mortada</a>
-</nav>
-<main class="container mt-5">
-  <h1>GeoAI : intelligence artificielle appliquée aux données géospatiales</h1>
-  <p>GeoAI regroupe les techniques d'intelligence artificielle (deep learning, vision par ordinateur, apprentissage automatique) appliquées aux données géospatiales. On le retrouve en télédétection, détection d'objets sur images satellite, classification sémantique et cartographie automatique.</p>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code mr-2"></i>BOUZAFFOUR Mortada
+            </a>
+        </div>
+    </nav>
 
-  <h2>Techniques et outils</h2>
-  <ul>
-    <li>Réseaux de neurones convolutionnels (CNN) pour la classification d'images.</li>
-    <li>Segmentation sémantique (U-Net, DeepLab) pour cartographie fine.</li>
-    <li>Fusion multi-sources : images optiques, SAR, LiDAR.</li>
-  </ul>
+    <!-- En-tête de l'article -->
+    <header class="article-header">
+        <div class="container text-center">
+            <h1>GeoAI : intelligence artificielle appliquée aux données géospatiales</h1>
+            <div class="article-meta">
+                <span class="mr-4"><i class="far fa-calendar-alt"></i> 25 Mars 2024</span>
+                <span><i class="far fa-clock"></i> Temps de lecture : 8 min</span>
+            </div>
+        </div>
+    </header>
 
-  <h2>Enjeux</h2>
-  <p>Qualité des données, coûts de labellisation, généralisation spatiale des modèles et contraintes de calcul restent des défis majeurs en GeoAI.</p>
+    <!-- Contenu principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <article class="main-content">
+                    <!-- Introduction enrichie -->
+                    <p class="lead">
+                        La convergence entre intelligence artificielle et sciences géospatiales a donné naissance à un domaine 
+                        fascinant : la GeoAI. Cette discipline révolutionne notre capacité à analyser, comprendre et modéliser 
+                        le monde qui nous entoure, des profondeurs des océans aux métropoles tentaculaires.
+                    </p>
 
-  <a class="btn btn-secondary" href="blog.html">Retour au blog</a>
-</main>
+                    <p>
+                        En combinant la puissance des réseaux de neurones profonds avec la richesse des données géospatiales 
+                        (satellites, drones, capteurs IoT), la GeoAI ouvre des possibilités inédites en cartographie automatique, 
+                        en surveillance environnementale et en planification urbaine. Plongeons dans les techniques, outils et 
+                        défis de cette discipline en pleine effervescence.
+                    </p>
+
+                    <!-- Section 1 : Qu'est-ce que la GeoAI -->
+                    <h2><i class="fas fa-brain mr-3"></i>1. GeoAI : fusion entre géomatique et deep learning</h2>
+                    
+                    <p>
+                        La GeoAI ne se limite pas à appliquer des algorithmes d'apprentissage automatique à des données spatiales. 
+                        C'est une <strong>synergie profonde</strong> où les particularités des données géographiques (auto-corrélation 
+                        spatiale, échelles multiples, projections) influencent la conception même des modèles d'IA.
+                    </p>
+
+                    <div class="arch-card">
+                        <h3><i class="fas fa-cubes mr-3"></i>Les piliers de la GeoAI</h3>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p><strong><i class="fas fa-satellite"></i> Télédétection</strong></p>
+                                <ul>
+                                    <li>Analyse d'images satellite</li>
+                                    <li>Traitements hyperspectraux</li>
+                                    <li>Séries temporelles</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong><i class="fas fa-map"></i> Vision spatiale</strong></p>
+                                <ul>
+                                    <li>Détection d'objets</li>
+                                    <li>Segmentation sémantique</li>
+                                    <li>Reconnaissance de formes</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-4">
+                                <p><strong><i class="fas fa-project-diagram"></i> Analyse prédictive</strong></p>
+                                <ul>
+                                    <li>Évolution urbaine</li>
+                                    <li>Risques naturels</li>
+                                    <li>Dynamiques spatiales</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 : Techniques fondamentales -->
+                    <h2><i class="fas fa-microchip mr-3"></i>2. Techniques et architectures deep learning</h2>
+                    
+                    <div class="tech-grid">
+                        <div class="tech-card">
+                            <h4><i class="fas fa-layer-group"></i>CNN pour classification</h4>
+                            <p>Les réseaux de neurones convolutionnels classifient des patches d'images satellite pour identifier l'occupation des sols : forêts, zones urbaines, cultures, plans d'eau.</p>
+                            <span class="tech-badge">Classification</span>
+                        </div>
+                        <div class="tech-card">
+                            <h4><i class="fas fa-cut"></i>U-Net pour segmentation</h4>
+                            <p>Architecture encoder-decoder avec skip connections. Idéale pour segmenter précisément routes, bâtiments ou champs agricoles à l'échelle du pixel.</p>
+                            <span class="tech-badge">Segmentation</span>
+                        </div>
+                        <div class="tech-card">
+                            <h4><i class="fas fa-crop-alt"></i>DeepLab (ASPP)</h4>
+                            <p>Utilise des convolutions dilatées (atrous) pour capturer des contextes multi-échelles sans perdre en résolution. Parfait pour cartographie fine.</p>
+                            <span class="tech-badge">Segmentation</span>
+                        </div>
+                        <div class="tech-card">
+                            <h4><i class="fas fa-bolt"></i>Fusion multi-sources</h4>
+                            <p>Combine optique (Sentinel-2), radar (Sentinel-1) et LiDAR via des architectures fusionnant les features à différents niveaux.</p>
+                            <span class="tech-badge">Fusion</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 : Applications concrètes -->
+                    <h2><i class="fas fa-rocket mr-3"></i>3. Applications révolutionnaires</h2>
+                    
+                    <div class="app-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Domaine</th>
+                                    <th>Application</th>
+                                    <th>Technique GeoAI</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Agriculture</strong></td>
+                                    <td>Détection maladies, prédiction rendements</td>
+                                    <td>Séries temporelles + CNN</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Urbain</strong></td>
+                                    <td>Cartographie 3D automatique, îlots de chaleur</td>
+                                    <td>Segmentation + LiDAR</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Environnement</strong></td>
+                                    <td>Suivi déforestation, feux de forêt</td>
+                                    <td>Change detection, U-Net</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Catastrophes</strong></td>
+                                    <td>Évaluation rapide des dégâts post-séisme</td>
+                                    <td>Objets + segmentation</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Océanographie</strong></td>
+                                    <td>Détection déversements pétroliers</td>
+                                    <td>SAR + deep learning</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Section 4 : Outils et frameworks -->
+                    <h2><i class="fas fa-wrench mr-3"></i>4. Écosystème technique GeoAI</h2>
+                    
+                    <div class="tool-box">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-python"></i> Python / ML</h5>
+                                <div class="tool-tags">
+                                    <span class="tool-tag">TensorFlow</span>
+                                    <span class="tool-tag">PyTorch</span>
+                                    <span class="tool-tag">Keras</span>
+                                    <span class="tool-tag">scikit-learn</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h5><i class="fas fa-globe"></i> Géospatiaux</h5>
+                                <div class="tool-tags">
+                                    <span class="tool-tag">GDAL</span>
+                                    <span class="tool-tag">Rasterio</span>
+                                    <span class="tool-tag">GeoPandas</span>
+                                    <span class="tool-tag">xarray</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <h5><i class="fas fa-cloud"></i> Plateformes cloud</h5>
+                                <div class="tool-tags">
+                                    <span class="tool-tag">Google Earth Engine</span>
+                                    <span class="tool-tag">AWS SageMaker</span>
+                                    <span class="tool-tag">Microsoft Planetary Computer</span>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <h5><i class="fas fa-database"></i> Datasets</h5>
+                                <div class="tool-tags">
+                                    <span class="tool-tag">Sentinel-2</span>
+                                    <span class="tool-tag">Landsat</span>
+                                    <span class="tool-tag">OpenStreetMap</span>
+                                    <span class="tool-tag">SpaceNet</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 : Enjeux et défis -->
+                    <h2><i class="fas fa-exclamation-triangle mr-3"></i>5. Défis majeurs en GeoAI</h2>
+                    
+                    <div class="challenge-grid">
+                        <div class="challenge-card">
+                            <h5><i class="fas fa-tag"></i> Coûts de labellisation</h5>
+                            <p>La création de datasets annotés est extrêmement coûteuse et chronophage. Des approches comme l'auto-supervision ou l'active learning émergent pour réduire ce besoin.</p>
+                        </div>
+                        <div class="challenge-card">
+                            <h5><i class="fas fa-arrows-alt"></i> Généralisation spatiale</h5>
+                            <p>Un modèle entraîné sur Paris fonctionnera-t-il à Tokyo ? La variabilité des paysages et des capteurs limite le transfert.</p>
+                        </div>
+                        <div class="challenge-card">
+                            <h5><i class="fas fa-microscope"></i> Résolution multiple</h5>
+                            <p>Combiner données 10m (Sentinel-2) avec données 30m (Landsat) ou 1m (WorldView) nécessite des architectures adaptées.</p>
+                        </div>
+                        <div class="challenge-card">
+                            <h5><i class="fas fa-tachometer-alt"></i> Contraintes calcul</h5>
+                            <p>Les images satellite mondiales représentent des pétaoctets. Inférence à grande échelle nécessite optimisations et cloud.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 6 : Évolution et tendances -->
+                    <h2><i class="fas fa-chart-line mr-3"></i>6. Où va la GeoAI ?</h2>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h5>Fondation Models</h5>
+                            <p>Comme en NLP, des modèles pré-entraînés sur d'immenses corpus satellite (ex: Prithvi de NASA/IBM) émergent pour la télédétection.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Fusion multi-capteurs</h5>
+                            <p>Intégration native optique, radar, LiDAR dans des architectures unifiées (ex: transformer pour données multimodales).</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Edge GeoAI</h5>
+                            <p>Inférence directement à bord des satellites ou drones pour réduire les transmissions et permettre des réponses en temps réel.</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h5>Géo-génération</h5>
+                            <p>Modèles génératifs (GANs, diffusion) pour créer des cartes ou compléter des zones manquantes de manière réaliste.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 7 : Conseils pratiques -->
+                    <h2><i class="fas fa-lightbulb mr-3"></i>7. Démarrer en GeoAI</h2>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="tech-card">
+                                <h5><i class="fas fa-book"></i> 1. Maîtrisez les bases</h5>
+                                <p>Deep learning (CNN, segmentation) + géomatique (projections, rasters, vecteurs).</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tech-card">
+                                <h5><i class="fas fa-code"></i> 2. Pratiquez</h5>
+                                <p>Kaggle compétitions (ex: Draper Satellite), Open Cities AI Challenge.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tech-card">
+                                <h5><i class="fas fa-users"></i> 3. Suivez la recherche</h5>
+                                <p>Conférences : CVPR EarthVision, NeurIPS (workshops), IGARSS.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <h2 class="mt-5"><i class="fas fa-gem mr-3"></i>Conclusion</h2>
+                    <div class="challenge-card" style="border-left-color: #6f42c1;">
+                        <p>
+                            La GeoAI représente bien plus qu'une simple application de l'IA à la géomatique. C'est une 
+                            <strong>nouvelle façon de voir le monde</strong>, où chaque pixel raconte une histoire, chaque 
+                            objet détecté informe une décision. Les défis sont immenses, mais les opportunités le sont tout autant.
+                        </p>
+                        <p class="mb-0">
+                            <strong>Vision 2030 :</strong> Des jumeaux numériques de la Terre, mis à jour en temps réel par des 
+                            flottes de satellites intelligents, pour piloter durablement notre planète.
+                        </p>
+                    </div>
+
+                    <!-- Lien de retour -->
+                    <div class="text-center">
+                        <a href="blog.html" class="btn btn-retour">
+                            <i class="fas fa-arrow-left"></i>Retour au blog
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2024 BOUZAFFOUR Mortada. Tous droits réservés.</p>
+            <p class="mb-0">
+                <small>Suivez-moi sur 
+                    <a href="#" class="text-dark"><i class="fab fa-linkedin"></i></a> 
+                    <a href="#" class="text-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+                </small>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,32 +1,717 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Géodata Science — Blog</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Géodata Science : SIG et Data Science — Blog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #2c3e50 !important;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50px 50px;
+        }
+        .article-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        .article-meta i {
+            margin-right: 5px;
+        }
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .main-content h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #fd7e14;
+        }
+        .main-content h2:first-of-type {
+            margin-top: 0;
+        }
+        .main-content h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .main-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .main-content p.lead {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #555;
+        }
+        
+        /* Diagramme de Venn intersection */
+        .venn-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+        .venn-circle {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+        .circle-sig {
+            background: rgba(253, 126, 20, 0.2);
+            border: 3px solid #fd7e14;
+            left: 50px;
+        }
+        .circle-ds {
+            background: rgba(220, 53, 69, 0.2);
+            border: 3px solid #dc3545;
+            right: 50px;
+        }
+        .intersection {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            text-align: center;
+            z-index: 2;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .venn-container {
+                flex-direction: column;
+                height: auto;
+            }
+            .circle-sig, .circle-ds {
+                position: static;
+                margin: 1rem;
+            }
+            .intersection {
+                position: static;
+                margin: 1rem auto;
+            }
+        }
+        
+        /* Cartes caractéristiques */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .feature-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border-top: 4px solid #fd7e14;
+            height: 100%;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(253,126,20,0.1);
+        }
+        .feature-card h4 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .feature-card h4 i {
+            color: #fd7e14;
+            margin-right: 8px;
+        }
+        
+        /* Cartes données */
+        .data-type-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .data-type-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.2rem;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        .data-type-card.vector {
+            border-left: 4px solid #28a745;
+        }
+        .data-type-card.raster {
+            border-left: 4px solid #dc3545;
+        }
+        .data-type-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .data-type-card i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        .data-type-card.vector i {
+            color: #28a745;
+        }
+        .data-type-card.raster i {
+            color: #dc3545;
+        }
+        
+        /* Pipeline visuel */
+        .pipeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 3rem 0;
+            position: relative;
+        }
+        .pipeline-step {
+            flex: 1 1 200px;
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin: 0.5rem;
+            position: relative;
+            border-bottom: 3px solid #fd7e14;
+        }
+        .pipeline-step i {
+            font-size: 2rem;
+            color: #fd7e14;
+            margin-bottom: 1rem;
+        }
+        .pipeline-step::after {
+            content: '\f054';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            right: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fd7e14;
+            font-size: 1.2rem;
+        }
+        .pipeline-step:last-child::after {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .pipeline-step::after {
+                display: none;
+            }
+        }
+        
+        /* Cartes modélisation */
+        .model-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .model-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        .model-card:hover {
+            border-color: #fd7e14;
+            box-shadow: 0 5px 20px rgba(253,126,20,0.1);
+        }
+        .model-card h5 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .model-badge {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #fd7e14;
+            color: white;
+            margin-left: 0.5rem;
+        }
+        
+        /* Cartes cas d'usage */
+        .usecase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .usecase-card {
+            background: linear-gradient(135deg, #fd7e14 0%, #dc3545 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s;
+        }
+        .usecase-card:hover {
+            transform: translateY(-5px);
+        }
+        .usecase-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        /* Stack technologique */
+        .tech-stack {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        .tech-category {
+            margin-bottom: 1.5rem;
+        }
+        .tech-category h5 {
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+        .tech-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        .tech-item {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 50px;
+            padding: 0.4rem 1rem;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+        }
+        .tech-item:hover {
+            background: #fd7e14;
+            color: white;
+            border-color: #fd7e14;
+        }
+        
+        /* Comparaison SIG vs Data Science */
+        .comparison-row {
+            display: flex;
+            margin: 2rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .comp-col {
+            flex: 1;
+            padding: 1.5rem;
+        }
+        .comp-col.sig {
+            background: rgba(253, 126, 20, 0.1);
+            border-right: 2px solid #fd7e14;
+        }
+        .comp-col.ds {
+            background: rgba(220, 53, 69, 0.1);
+        }
+        
+        .btn-retour {
+            background: #fd7e14;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 2rem;
+        }
+        .btn-retour:hover {
+            background: #e06b00;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(253,126,20,0.4);
+        }
+        .btn-retour i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.html">BOUZAFFOUR Mortada</a>
-</nav>
-<main class="container mt-5">
-  <h1>Géodata Science : au carrefour du SIG et de la Data Science</h1>
-  <p>La Géodata Science est l'intersection entre les Systèmes d'Information Géographique (SIG) et la data science. Elle combine les approches spatiales (cartographie, SIG, géostatistique) avec les méthodes de data science (apprentissage statistique, machine learning, big data) pour extraire des connaissances à partir de données géoréférencées.</p>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code mr-2"></i>BOUZAFFOUR Mortada
+            </a>
+        </div>
+    </nav>
 
-  <h2>Principales caractéristiques</h2>
-  <ul>
-    <li>Travail sur données spatiales : vecteurs et rasters.</li>
-    <li>Pré-traitement géospatial : reprojection, nettoyage, mosaïquage.</li>
-    <li>Modélisation : régression spatiale, forêts aléatoires spatiales, réseaux de neurones pour données géospatiales.</li>
-    <li>Visualisation et cartographie interactive pour l'interprétation.</li>
-  </ul>
+    <!-- En-tête de l'article -->
+    <header class="article-header">
+        <div class="container text-center">
+            <h1>Géodata Science : au carrefour du SIG et de la Data Science</h1>
+            <div class="article-meta">
+                <span class="mr-4"><i class="far fa-calendar-alt"></i> 28 Mars 2024</span>
+                <span><i class="far fa-clock"></i> Temps de lecture : 7 min</span>
+            </div>
+        </div>
+    </header>
 
-  <h2>Cas d'usage</h2>
-  <p>Exemples : prédiction de la qualité de l'eau, détection d'occupation du sol, optimisation des réseaux (eau/énergie), analyses d'impact environnemental.</p>
+    <!-- Contenu principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <article class="main-content">
+                    <!-- Introduction enrichie -->
+                    <p class="lead">
+                        Longtemps restés dans des silos distincts, les Systèmes d'Information Géographique (SIG) et la Data Science 
+                        convergent aujourd'hui pour donner naissance à un domaine hybride passionnant : la <strong>Géodata Science</strong>.
+                    </p>
 
-  <a class="btn btn-secondary" href="blog.html">Retour au blog</a>
-</main>
+                    <p>
+                        Cette discipline émergente ne se contente pas de superposer des points sur une carte. Elle intègre la 
+                        <strong>dimension spatiale</strong> comme une composante à part entière des modèles prédictifs, permettant 
+                        de répondre à des questions complexes : comment la pollution se propage-t-elle dans une ville ? Où implanter 
+                        de nouveaux équipements publics ? Comment optimiser les réseaux de distribution d'eau ?
+                    </p>
+
+                    <!-- Visualisation intersection -->
+                    <div class="venn-container">
+                        <div class="venn-circle circle-sig">
+                            SIG<br>Géomatique
+                        </div>
+                        <div class="intersection">
+                            GÉODATA<br>SCIENCE
+                        </div>
+                        <div class="venn-circle circle-ds">
+                            Data<br>Science
+                        </div>
+                    </div>
+
+                    <!-- Section 1 : Les fondamentaux -->
+                    <h2><i class="fas fa-compass mr-3"></i>1. Qu'est-ce que la Géodata Science ?</h2>
+                    
+                    <p>
+                        La Géodata Science représente l'intersection naturelle entre deux mondes qui s'ignorent trop souvent :
+                    </p>
+
+                    <div class="comparison-row">
+                        <div class="comp-col sig">
+                            <h5><i class="fas fa-map-marked-alt"></i> SIG / Géomatique</h5>
+                            <ul>
+                                <li>Cartographie, projection, analyse spatiale</li>
+                                <li>Données vecteurs et rasters</li>
+                                <li>Géostatistique, interpolation</li>
+                                <li>Logiciels : QGIS, ArcGIS, PostGIS</li>
+                            </ul>
+                        </div>
+                        <div class="comp-col ds">
+                            <h5><i class="fas fa-chart-bar"></i> Data Science</h5>
+                            <ul>
+                                <li>Machine learning, statistiques</li>
+                                <li>Big Data, pipelines de données</li>
+                                <li>Visualisation avancée</li>
+                                <li>Outils : Python, R, TensorFlow</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <p class="mt-3">
+                        La fusion de ces deux approches permet de traiter la <strong>spécificité spatiale</strong> des données 
+                        (auto-corrélation, hétérogénéité) avec la <strong>puissance prédictive</strong> des algorithmes modernes.
+                    </p>
+
+                    <!-- Section 2 : Types de données -->
+                    <h2><i class="fas fa-database mr-3"></i>2. Les données en Géodata Science</h2>
+                    
+                    <div class="data-type-grid">
+                        <div class="data-type-card vector">
+                            <i class="fas fa-draw-polygon"></i>
+                            <h5>Données vecteurs</h5>
+                            <p>Points, lignes, polygones</p>
+                            <small>Bâtiments, routes, parcelles</small>
+                        </div>
+                        <div class="data-type-card raster">
+                            <i class="fas fa-border-all"></i>
+                            <h5>Données raster</h5>
+                            <p>Grilles de pixels</p>
+                            <small>Images satellite, MNT</small>
+                        </div>
+                        <div class="data-type-card vector">
+                            <i class="fas fa-network-wired"></i>
+                            <h5>Réseaux</h5>
+                            <p>Graphes spatialisés</p>
+                            <small>Réseaux d'eau, transport</small>
+                        </div>
+                        <div class="data-type-card raster">
+                            <i class="fas fa-chart-line"></i>
+                            <h5>Séries temporelles</h5>
+                            <p>Évolution spatiale</p>
+                            <small>Climat, occupation sol</small>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 : Pipeline de traitement -->
+                    <h2><i class="fas fa-stream mr-3"></i>3. Pipeline typique en Géodata Science</h2>
+                    
+                    <div class="pipeline">
+                        <div class="pipeline-step">
+                            <i class="fas fa-download"></i>
+                            <h5>1. Acquisition</h5>
+                            <p>Satellites, capteurs, OSM, APIs</p>
+                        </div>
+                        <div class="pipeline-step">
+                            <i class="fas fa-cut"></i>
+                            <h5>2. Prétraitement</h5>
+                            <p>Reprojection, découpage, nettoyage</p>
+                        </div>
+                        <div class="pipeline-step">
+                            <i class="fas fa-brain"></i>
+                            <h5>3. Modélisation</h5>
+                            <p>ML spatial, deep learning</p>
+                        </div>
+                        <div class="pipeline-step">
+                            <i class="fas fa-chart-pie"></i>
+                            <h5>4. Visualisation</h5>
+                            <p>Cartes interactives, dashboards</p>
+                        </div>
+                        <div class="pipeline-step">
+                            <i class="fas fa-robot"></i>
+                            <h5>5. Décision</h5>
+                            <p>Aide à la décision, alertes</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 : Caractéristiques principales -->
+                    <h2><i class="fas fa-cogs mr-3"></i>4. Les piliers de la Géodata Science</h2>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <h4><i class="fas fa-vector-square"></i> Données spatiales</h4>
+                            <p>Manipulation native de formats vecteurs (Shapefile, GeoJSON) et rasters (GeoTIFF, NetCDF) avec préservation des propriétés géométriques.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-map-project"></i> Prétraitements géospatiaux</h4>
+                            <p>Reprojection, mosaïquage, géocodage, découpage par emprise - des étapes critiques avant toute analyse.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-chart-line"></i> Modélisation spatiale</h4>
+                            <p>Régression géographiquement pondérée, forêts aléatoires spatiales, réseaux de neurones avec couches spatialisées.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-eye"></i> Visualisation interactive</h4>
+                            <p>Cartes dynamiques, clusters, heatmaps, dashboards pour explorer et communiquer les résultats.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 : Modélisation avancée -->
+                    <h2><i class="fas fa-microchip mr-3"></i>5. Techniques de modélisation spécifiques</h2>
+                    
+                    <div class="model-grid">
+                        <div class="model-card">
+                            <h5>Régression spatiale <span class="model-badge">Géostatistique</span></h5>
+                            <p>Prend en compte l'auto-corrélation spatiale via des modèles SAR, CAR ou krigeage.</p>
+                        </div>
+                        <div class="model-card">
+                            <h5>Forêts aléatoires spatiales <span class="model-badge">ML</span></h5>
+                            <p>Intégration de coordonnées et de features spatiales comme prédicteurs explicites.</p>
+                        </div>
+                        <div class="model-card">
+                            <h5>CNN spatiaux <span class="model-badge">Deep</span></h5>
+                            <p>Adaptation des convolutions aux données géographiques (patch-based, multi-échelle).</p>
+                        </div>
+                        <div class="model-card">
+                            <h5>Graph Neural Networks <span class="model-badge">GNN</span></h5>
+                            <p>Pour données en réseaux (routier, hydrologique) avec relations de voisinage.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 6 : Cas d'usage concrets -->
+                    <h2><i class="fas fa-briefcase mr-3"></i>6. Applications métier</h2>
+                    
+                    <div class="usecase-grid">
+                        <div class="usecase-card">
+                            <i class="fas fa-water"></i>
+                            <h5>Prédiction qualité de l'eau</h5>
+                            <p>Fusion données capteurs in-situ + images satellite + modèles ML pour anticiper pollutions.</p>
+                        </div>
+                        <div class="usecase-card">
+                            <i class="fas fa-tree"></i>
+                            <h5>Occupation du sol</h5>
+                            <p>Classification supervisée d'images satellite pour cartographier l'évolution urbaine.</p>
+                        </div>
+                        <div class="usecase-card">
+                            <i class="fas fa-bolt"></i>
+                            <h5>Optimisation réseaux</h5>
+                            <p>Placement optimal d'équipements (bornes électriques, capteurs) par algorithmes génétiques.</p>
+                        </div>
+                        <div class="usecase-card">
+                            <i class="fas fa-industry"></i>
+                            <h5>Impact environnemental</h5>
+                            <p>Analyse multicritère spatialisée pour études d'impact de projets industriels.</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 7 : Stack technologique -->
+                    <h2><i class="fas fa-laptop-code mr-3"></i>7. Écosystème technique</h2>
+                    
+                    <div class="tech-stack">
+                        <div class="tech-category">
+                            <h5><i class="fas fa-python"></i> Python (écosystème principal)</h5>
+                            <div class="tech-items">
+                                <span class="tech-item">GeoPandas</span>
+                                <span class="tech-item">Shapely</span>
+                                <span class="tech-item">Fiona</span>
+                                <span class="tech-item">Rasterio</span>
+                                <span class="tech-item">xarray</span>
+                                <span class="tech-item">PySAL</span>
+                                <span class="tech-item">scikit-learn</span>
+                                <span class="tech-item">TensorFlow</span>
+                                <span class="tech-item">PyTorch</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h5><i class="fas fa-database"></i> Bases de données spatiales</h5>
+                            <div class="tech-items">
+                                <span class="tech-item">PostGIS</span>
+                                <span class="tech-item">SpatiaLite</span>
+                                <span class="tech-item">MongoDB (GeoJSON)</span>
+                                <span class="tech-item">Elasticsearch (geo)</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h5><i class="fas fa-map"></i> Visualisation</h5>
+                            <div class="tech-items">
+                                <span class="tech-item">Folium</span>
+                                <span class="tech-item">Mapbox GL</span>
+                                <span class="tech-item">Kepler.gl</span>
+                                <span class="tech-item">Leaflet</span>
+                                <span class="tech-item">QGIS</span>
+                            </div>
+                        </div>
+                        <div class="tech-category">
+                            <h5><i class="fas fa-cloud"></i> Cloud & Big Data</h5>
+                            <div class="tech-items">
+                                <span class="tech-item">Google Earth Engine</span>
+                                <span class="tech-item">AWS SageMaker</span>
+                                <span class="tech-item">Databricks</span>
+                                <span class="tech-item">Sedona (GeoSpark)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 8 : Défis spécifiques -->
+                    <h2><i class="fas fa-exclamation-triangle mr-3"></i>8. Défis à relever</h2>
+                    
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <h4><i class="fas fa-cubes"></i> MAUP</h4>
+                            <p>Problème d'unité spatiale modifiable : les résultats changent selon le zonage choisi.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-link"></i> Autocorrélation spatiale</h4>
+                            <p>Les données proches se ressemblent - violation de l'indépendance en ML classique.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-expand"></i> Échelles multiples</h4>
+                            <p>Comment combiner données à 10m, 100m et 1km dans un même modèle ?</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-clock"></i> Temporel spatial</h4>
+                            <p>Modéliser des phénomènes qui évoluent dans l'espace ET dans le temps.</p>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <h2 class="mt-5"><i class="fas fa-gem mr-3"></i>Conclusion</h2>
+                    <div class="feature-card" style="border-top-color: #dc3545;">
+                        <p>
+                            La Géodata Science n'est pas une simple mode, mais une <strong>nécessité méthodologique</strong>. 
+                            Dans un monde où 80% des données possèdent une composante spatiale, savoir intégrer cette dimension 
+                            dans les modèles prédictifs devient un avantage compétitif majeur.
+                        </p>
+                        <p class="mb-0">
+                            <strong>À retenir :</strong> Le futur appartient aux profils capables de parler à la fois le langage 
+                            des cartes (SIG) et celui des algorithmes (Data Science). La Géodata Science forme ce pont indispensable.
+                        </p>
+                    </div>
+
+                    <!-- Lien de retour -->
+                    <div class="text-center">
+                        <a href="blog.html" class="btn btn-retour">
+                            <i class="fas fa-arrow-left"></i>Retour au blog
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2024 BOUZAFFOUR Mortada. Tous droits réservés.</p>
+            <p class="mb-0">
+                <small>Suivez-moi sur 
+                    <a href="#" class="text-dark"><i class="fab fa-linkedin"></i></a> 
+                    <a href="#" class="text-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+                </small>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -1,28 +1,739 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Deep Learning & ML en géomatique — Blog</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Deep Learning & ML en géomatique — Blog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #2c3e50 !important;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50px 50px;
+        }
+        .article-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        .article-meta i {
+            margin-right: 5px;
+        }
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .main-content h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #0d6efd;
+        }
+        .main-content h2:first-of-type {
+            margin-top: 0;
+        }
+        .main-content h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .main-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .main-content p.lead {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #555;
+        }
+        
+        /* Bannière de comparaison ML vs DL */
+        .comparison-banner {
+            display: flex;
+            margin: 2.5rem 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        .comp-side {
+            flex: 1;
+            padding: 2rem;
+            color: white;
+        }
+        .comp-side.ml {
+            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+        }
+        .comp-side.dl {
+            background: linear-gradient(135deg, #0dcaf0, #0b9bbe);
+        }
+        .comp-side h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 0.5rem;
+        }
+        .comp-side ul {
+            list-style: none;
+            padding: 0;
+        }
+        .comp-side li {
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        .comp-side li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.8);
+        }
+        
+        @media (max-width: 768px) {
+            .comparison-banner {
+                flex-direction: column;
+            }
+        }
+        
+        /* Grille des applications */
+        .app-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .app-card {
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+            border-bottom: 4px solid transparent;
+        }
+        .app-card:hover {
+            transform: translateY(-5px);
+            border-bottom-color: #0d6efd;
+            box-shadow: 0 10px 30px rgba(13,110,253,0.1);
+        }
+        .app-card i {
+            font-size: 2rem;
+            color: #0d6efd;
+            margin-bottom: 1rem;
+        }
+        .app-card h4 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .app-tag {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: #e7f1ff;
+            color: #0d6efd;
+            margin-top: 1rem;
+        }
+        
+        /* Grille des algorithmes */
+        .algo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .algo-card {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.2rem;
+            border-left: 4px solid #0d6efd;
+        }
+        .algo-card h5 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .algo-badge {
+            font-size: 0.7rem;
+            background: #0d6efd;
+            color: white;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+        
+        /* Timeline architecture */
+        .arch-timeline {
+            position: relative;
+            margin: 3rem 0;
+        }
+        .arch-item {
+            display: flex;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .arch-year {
+            width: 100px;
+            font-weight: 700;
+            color: #0d6efd;
+            font-size: 1.2rem;
+        }
+        .arch-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 1.2rem;
+            border-radius: 10px;
+            position: relative;
+        }
+        .arch-content::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 20px;
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid #f8f9fa;
+        }
+        
+        /* Cartes bonnes pratiques */
+        .practice-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .practice-card {
+            background: linear-gradient(135deg, #0d6efd 0%, #0dcaf0 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 1.8rem;
+            transition: transform 0.3s;
+        }
+        .practice-card:hover {
+            transform: translateY(-5px);
+        }
+        .practice-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: rgba(255,255,255,0.9);
+        }
+        .practice-card h4 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        /* Tableau de décision */
+        .decision-table {
+            margin: 2rem 0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .decision-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .decision-table th {
+            background: #0d6efd;
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+        }
+        .decision-table td {
+            padding: 1rem;
+            border: 1px solid #dee2e6;
+        }
+        .decision-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .check-ok {
+            color: #198754;
+        }
+        .check-warning {
+            color: #ffc107;
+        }
+        .check-error {
+            color: #dc3545;
+        }
+        
+        /* Stack technique */
+        .tech-bubbles {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .tech-bubble {
+            background: white;
+            border: 2px solid #0d6efd;
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        .tech-bubble:hover {
+            background: #0d6efd;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        /* Validation spatiale */
+        .cv-diagram {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .cv-fold {
+            width: 80px;
+            height: 80px;
+            background: #f8f9fa;
+            border: 2px solid #0d6efd;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            position: relative;
+        }
+        .cv-fold.test {
+            background: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+        .cv-fold::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 15px;
+            background: #0d6efd;
+        }
+        
+        .btn-retour {
+            background: #0d6efd;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 2rem;
+        }
+        .btn-retour:hover {
+            background: #0b5ed7;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(13,110,253,0.4);
+        }
+        .btn-retour i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.html">BOUZAFFOUR Mortada</a>
-</nav>
-<main class="container mt-5">
-  <h1>Deep Learning et Machine Learning en géomatique</h1>
-  <p>Les méthodes de machine learning et deep learning transforment la géomatique : classification, détection d'objets, estimation de variables continues (ex. biomasse), et interpolation spatiale avancée. Le choix entre ML classique et DL dépend de la taille des données, de la puissance de calcul et de la complexité du problème.</p>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code mr-2"></i>BOUZAFFOUR Mortada
+            </a>
+        </div>
+    </nav>
 
-  <h2>Bonnes pratiques</h2>
-  <ul>
-    <li>Prétraiter et normaliser correctement les données spatiales.</li>
-    <li>Utiliser augmentation de données pour images satellite.</li>
-    <li>Tester la robustesse spatiale (cross-validation spatiale).</li>
-  </ul>
+    <!-- En-tête de l'article -->
+    <header class="article-header">
+        <div class="container text-center">
+            <h1>Deep Learning et Machine Learning en géomatique</h1>
+            <div class="article-meta">
+                <span class="mr-4"><i class="far fa-calendar-alt"></i> 30 Mars 2024</span>
+                <span><i class="far fa-clock"></i> Temps de lecture : 9 min</span>
+            </div>
+        </div>
+    </header>
 
-  <a class="btn btn-secondary" href="blog.html">Retour au blog</a>
-</main>
+    <!-- Contenu principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <article class="main-content">
+                    <!-- Introduction enrichie -->
+                    <p class="lead">
+                        La géomatique vit une révolution silencieuse : là où on utilisait des seuillages et des indices spectraux, 
+                        on déploie aujourd'hui des réseaux de neurones profonds et des forêts aléatoires. Cette transition 
+                        méthodologique ouvre des horizons inédits pour l'analyse des territoires.
+                    </p>
+
+                    <p>
+                        Mais face à la diversité des algorithmes (régression logistique, SVM, Random Forest, CNN, U-Net, Transformers), 
+                        comment choisir ? Quand privilégier le machine learning "classique" et quand passer au deep learning ? 
+                        Cet article vous guide à travers les possibilités, les contraintes et les bonnes pratiques spécifiques 
+                        au domaine spatial.
+                    </p>
+
+                    <!-- Section 1 : Comparaison ML vs DL -->
+                    <h2><i class="fas fa-balance-scale mr-3"></i>1. Machine Learning vs Deep Learning : quel choix pour la géomatique ?</h2>
+                    
+                    <div class="comparison-banner">
+                        <div class="comp-side ml">
+                            <h3><i class="fas fa-robot mr-2"></i> Machine Learning</h3>
+                            <ul>
+                                <li><strong>Données :</strong> Petits à moyens volumes (ex: quelques centaines d'échantillons)</li>
+                                <li><strong>Features :</strong> Ingénierie manuelle (indices spectraux, textures)</li>
+                                <li><strong>Interprétabilité :</strong> Bonne (importance des variables)</li>
+                                <li><strong>Calcul :</strong> CPU suffisant, entraînement rapide</li>
+                                <li><strong>Exemples :</strong> Random Forest, SVM, XGBoost</li>
+                            </ul>
+                        </div>
+                        <div class="comp-side dl">
+                            <h3><i class="fas fa-brain mr-2"></i> Deep Learning</h3>
+                            <ul>
+                                <li><strong>Données :</strong> Grands volumes nécessaires (milliers d'échantillons)</li>
+                                <li><strong>Features :</strong> Apprentissage automatique des représentations</li>
+                                <li><strong>Interprétabilit :</strong> Faible (boîte noire)</li>
+                                <li><strong>Calcul :</strong> GPU indispensable, temps long</li>
+                                <li><strong>Exemples :</strong> CNN, U-Net, Transformers</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 : Applications par type de problème -->
+                    <h2><i class="fas fa-tasks mr-3"></i>2. Applications en géomatique</h2>
+                    
+                    <div class="app-grid">
+                        <div class="app-card">
+                            <i class="fas fa-tag"></i>
+                            <h4>Classification</h4>
+                            <p>Occupation du sol, typologie de cultures, zones à risque</p>
+                            <span class="app-tag">ML: Random Forest</span>
+                            <span class="app-tag">DL: CNN</span>
+                        </div>
+                        <div class="app-card">
+                            <i class="fas fa-search"></i>
+                            <h4>Détection d'objets</h4>
+                            <p>Bâtiments, véhicules, navires, panneaux solaires</p>
+                            <span class="app-tag">DL: YOLO, Faster R-CNN</span>
+                        </div>
+                        <div class="app-card">
+                            <i class="fas fa-chart-line"></i>
+                            <h4>Estimation continue</h4>
+                            <p>Biomasse, température, concentration polluants</p>
+                            <span class="app-tag">ML: XGBoost</span>
+                            <span class="app-tag">DL: MLP</span>
+                        </div>
+                        <div class="app-card">
+                            <i class="fas fa-vector-square"></i>
+                            <h4>Segmentation sémantique</h4>
+                            <p>Cartographie pixel-level, réseaux routiers</p>
+                            <span class="app-tag">DL: U-Net, DeepLab</span>
+                        </div>
+                        <div class="app-card">
+                            <i class="fas fa-project-diagram"></i>
+                            <h4>Interpolation spatiale</h4>
+                            <p>Krigeage, prédiction spatiale continue</p>
+                            <span class="app-tag">ML: Krigeage, RFsp</span>
+                        </div>
+                        <div class="app-card">
+                            <i class="fas fa-film"></i>
+                            <h4>Séries temporelles</h4>
+                            <p>Détection changements, phénologie</p>
+                            <span class="app-tag">DL: LSTM, Transformers</span>
+                        </div>
+                    </div>
+
+                    <!-- Section 3 : Algorithmes stars -->
+                    <h2><i class="fas fa-star mr-3"></i>3. Algorithmes incontournables</h2>
+                    
+                    <h3 class="mt-4"><i class="fas fa-chart-bar"></i> Machine Learning</h3>
+                    <div class="algo-grid">
+                        <div class="algo-card">
+                            <h5>Random Forest <span class="algo-badge">RF</span></h5>
+                            <p>Robuste, peu de paramètres, gère bien les données hétérogènes. Idéal pour classification d'occupation sol.</p>
+                        </div>
+                        <div class="algo-card">
+                            <h5>SVM <span class="algo-badge">SVM</span></h5>
+                            <p>Efficace en haute dimension, bon pour petits jeux de données. Sensible aux paramètres.</p>
+                        </div>
+                        <div class="algo-card">
+                            <h5>XGBoost <span class="algo-badge">GBM</span></h5>
+                            <p>Excellent pour régression et classification, souvent winner en compétitions.</p>
+                        </div>
+                        <div class="algo-card">
+                            <h5>Krigeage <span class="algo-badge">Géo</span></h5>
+                            <p>Méthode géostatistique de référence pour interpolation spatiale.</p>
+                        </div>
+                    </div>
+
+                    <h3 class="mt-4"><i class="fas fa-brain"></i> Deep Learning</h3>
+                    <div class="algo-grid">
+                        <div class="algo-card">
+                            <h5>CNN <span class="algo-badge">Conv</span></h5>
+                            <p>Base de la vision par ordinateur. Classification d'images satellite par patches.</p>
+                        </div>
+                        <div class="algo-card">
+                            <h5>U-Net <span class="algo-badge">Seg</span></h5>
+                            <p>Architecture encoder-decoder avec skip connections. Référence en segmentation.</p>
+                        </div>
+                        <div class="algo-card">
+                            <h5>DeepLab <span class="algo-badge">ASPP</span></h5>
+                            <p>Convolutions dilatées pour capturer contextes multi-échelles.</p>
+                        </div>
+                        <div class="algo-card">
+                            <h5>LSTM / Transformers <span class="algo-badge">Temp</span></h5>
+                            <p>Pour séries temporelles d'images satellite (ex: Sentinel-2 time series).</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 : Évolution architecturale -->
+                    <h2><i class="fas fa-chart-line mr-3"></i>4. Évolution des architectures</h2>
+                    
+                    <div class="arch-timeline">
+                        <div class="arch-item">
+                            <div class="arch-year">2012</div>
+                            <div class="arch-content">
+                                <strong>AlexNet</strong> - Premier grand CNN, révolution en classification ImageNet
+                            </div>
+                        </div>
+                        <div class="arch-item">
+                            <div class="arch-year">2015</div>
+                            <div class="arch-content">
+                                <strong>U-Net</strong> - Architecture spécifique pour segmentation biomédicale, adoptée en satellite
+                            </div>
+                        </div>
+                        <div class="arch-item">
+                            <div class="arch-year">2017</div>
+                            <div class="arch-content">
+                                <strong>DeepLabV3+</strong> - Convolutions dilatées et pyramide spatiale
+                            </div>
+                        </div>
+                        <div class="arch-item">
+                            <div class="arch-year">2020</div>
+                            <div class="arch-content">
+                                <strong>Transformers</strong> - Adaptation aux images (ViT) et aux séries temporelles
+                            </div>
+                        </div>
+                        <div class="arch-item">
+                            <div class="arch-year">2023+</div>
+                            <div class="arch-content">
+                                <strong>Foundation Models</strong> - Modèles pré-entraînés sur immenses corpus satellite (Prithvi, SatMAE)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 : Bonnes pratiques spécifiques -->
+                    <h2><i class="fas fa-check-double mr-3"></i>5. Bonnes pratiques pour données spatiales</h2>
+                    
+                    <div class="practice-grid">
+                        <div class="practice-card">
+                            <i class="fas fa-water"></i>
+                            <h4>Prétraitement adapté</h4>
+                            <p>Normalisation par capteur, gestion des ombres et nuages, indices spectraux (NDVI, MNDWI).</p>
+                        </div>
+                        <div class="practice-card">
+                            <i class="fas fa-rotate"></i>
+                            <h4>Augmentation de données</h4>
+                            <p>Rotations, flips, zoom, variations colorimétriques pour images satellite.</p>
+                        </div>
+                        <div class="practice-card">
+                            <i class="fas fa-crosshairs"></i>
+                            <h4>Validation spatiale</h4>
+                            <p>Cross-validation par blocs spatiaux pour éviter fuite de données.</p>
+                        </div>
+                        <div class="practice-card">
+                            <i class="fas fa-balance-scale"></i>
+                            <h4>Équilibrage classes</h4>
+                            <p>Classes déséquilibrées en occupation sol (ex: eau minoritaire).</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 6 : Validation spatiale expliquée -->
+                    <h3><i class="fas fa-map-marked-alt"></i> Cross-validation spatiale : pourquoi c'est crucial</h3>
+                    
+                    <p>
+                        La validation classique par échantillonnage aléatoire est biaisée pour les données spatiales à cause de 
+                        l'<strong>autocorrélation spatiale</strong>. Des points proches dans le train et le test surestiment 
+                        les performances. Solution : découper l'espace en blocs indépendants.
+                    </p>
+
+                    <div class="cv-diagram">
+                        <div class="cv-fold">Fold 1</div>
+                        <div class="cv-fold test">Test</div>
+                        <div class="cv-fold">Fold 3</div>
+                        <div class="cv-fold">Fold 4</div>
+                        <div class="cv-fold">Fold 5</div>
+                    </div>
+                    <p class="text-center"><small>Validation croisée spatiale à 5 plis - un plis entier réservé pour test</small></p>
+
+                    <!-- Section 7 : Guide de décision -->
+                    <h2><i class="fas fa-compass mr-3"></i>6. Comment choisir ?</h2>
+                    
+                    <div class="decision-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Critère</th>
+                                    <th>ML classique</th>
+                                    <th>Deep Learning</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Taille du dataset</td>
+                                    <td><span class="check-ok"><i class="fas fa-check"></i> &lt; 1000 échantillons</span></td>
+                                    <td><span class="check-ok"><i class="fas fa-check"></i> &gt; 10 000 échantillons</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Type de données</td>
+                                    <td>Tabulaire, indices, features</td>
+                                    <td>Images, séries temporelles</td>
+                                </tr>
+                                <tr>
+                                    <td>Interprétabilité requise</td>
+                                    <td><span class="check-ok"><i class="fas fa-check"></i> Élevée</span></td>
+                                    <td><span class="check-error"><i class="fas fa-times"></i> Faible</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Ressources calcul</td>
+                                    <td><span class="check-ok"><i class="fas fa-check"></i> CPU standard</span></td>
+                                    <td><span class="check-warning"><i class="fas fa-exclamation"></i> GPU nécessaire</span></td>
+                                </tr>
+                                <tr>
+                                    <td>Complexité problème</td>
+                                    <td>Modérée</td>
+                                    <td>Élevée (segmentation fine, objets complexes)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Section 8 : Stack technique complet -->
+                    <h2><i class="fas fa-laptop-code mr-3"></i>7. Environnements et outils</h2>
+                    
+                    <div class="tech-bubbles">
+                        <span class="tech-bubble">scikit-learn</span>
+                        <span class="tech-bubble">TensorFlow</span>
+                        <span class="tech-bubble">PyTorch</span>
+                        <span class="tech-bubble">XGBoost</span>
+                        <span class="tech-bubble">LightGBM</span>
+                        <span class="tech-bubble">GeoPandas</span>
+                        <span class="tech-bubble">Rasterio</span>
+                        <span class="tech-bubble">GDAL</span>
+                        <span class="tech-bubble">eo-learn</span>
+                        <span class="tech-bubble">sktime</span>
+                        <span class="tech-bubble">PySAL</span>
+                        <span class="tech-bubble">scikit-geo</span>
+                    </div>
+
+                    <!-- Section 9 : Pièges à éviter -->
+                    <h2><i class="fas fa-exclamation-triangle mr-3"></i>8. Erreurs fréquentes</h2>
+                    
+                    <div class="feature-grid" style="grid-template-columns: repeat(2, 1fr);">
+                        <div class="feature-card">
+                            <h4><i class="fas fa-random"></i> Validation aléatoire</h4>
+                            <p>Utiliser une validation aléatoire sur données spatiales donne des performances trop optimistes.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-crop-alt"></i> Ignorer les nuages</h4>
+                            <p>Ne pas masquer les nuages en imagerie satellite fausse les modèles.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-chart-line"></i> Saisonnalité ignorée</h4>
+                            <p>Les modèles doivent intégrer la dimension temporelle (dates de prise de vue).</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-arrows-alt"></i> Généralisation spatiale</h4>
+                            <p>Un modèle entraîné sur une région ne fonctionne pas forcément ailleurs.</p>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <h2 class="mt-5"><i class="fas fa-gem mr-3"></i>Conclusion</h2>
+                    <div class="practice-card" style="background: linear-gradient(135deg, #0d6efd 0%, #0b5ed7 100%);">
+                        <p class="mb-0">
+                            Le choix entre Machine Learning et Deep Learning en géomatique n'est pas idéologique mais 
+                            <strong>pragmatique</strong>. Il dépend de vos données, de vos objectifs et de vos contraintes. 
+                            L'essentiel est de maîtriser les spécificités spatiales : validation adaptée, prétraitements 
+                            géographiques, et interprétation contextuelle des résultats.
+                        </p>
+                        <p class="mb-0 mt-3">
+                            <strong>Règle d'or :</strong> Commencez simple (Random Forest), complexifiez si nécessaire (U-Net), 
+                            mais validez toujours spatialement !
+                        </p>
+                    </div>
+
+                    <!-- Lien de retour -->
+                    <div class="text-center">
+                        <a href="blog.html" class="btn btn-retour">
+                            <i class="fas fa-arrow-left"></i>Retour au blog
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2024 BOUZAFFOUR Mortada. Tous droits réservés.</p>
+            <p class="mb-0">
+                <small>Suivez-moi sur 
+                    <a href="#" class="text-dark"><i class="fab fa-linkedin"></i></a> 
+                    <a href="#" class="text-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+                </small>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>

@@ -4,27 +4,275 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Devenir Ingénieur — Blog</title>
+    <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #2c3e50 !important;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50px 50px;
+        }
+        .article-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        .article-meta i {
+            margin-right: 5px;
+        }
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .main-content h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 2rem 0 1rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #667eea;
+        }
+        .main-content h2:first-of-type {
+            margin-top: 0;
+        }
+        .main-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .main-content p.lead {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #555;
+        }
+        .skill-card {
+            background: #f8f9fa;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 10px 10px 0;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .skill-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.2);
+        }
+        .skill-card h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        .skill-card h3 i {
+            color: #667eea;
+            margin-right: 10px;
+        }
+        .skill-card p {
+            margin-bottom: 0;
+        }
+        .btn-retour {
+            background: #667eea;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 1rem;
+        }
+        .btn-retour:hover {
+            background: #5a67d8;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102,126,234,0.4);
+        }
+        .btn-retour i {
+            margin-right: 8px;
+        }
+        footer {
+            background: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+            .main-content h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.html">BOUZAFFOUR Mortada</a>
-</nav>
-<main class="container mt-5">
-  <h1>Devenir Ingénieur : Au-delà des Compétences Techniques</h1>
-  <p>Le métier d'ingénieur est souvent associé à des compétences techniques pointues. Cependant, la formation d'ingénieur développe également un ensemble de capacités essentielles : résolution de problèmes, communication, créativité, apprentissage continu et éthique professionnelle.</p>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code mr-2"></i>BOUZAFFOUR Mortada
+            </a>
+        </div>
+    </nav>
 
-  <h2>Capacités clés</h2>
-  <ol>
-    <li>Résolution de problèmes et pensée critique</li>
-    <li>Communication et travail en équipe</li>
-    <li>Créativité et innovation</li>
-    <li>Apprentissage continu et adaptabilité</li>
-    <li>Éthique et responsabilité</li>
-  </ol>
+    <!-- En-tête de l'article -->
+    <header class="article-header">
+        <div class="container text-center">
+            <h1>Devenir Ingénieur : Au-delà des Compétences Techniques</h1>
+            <div class="article-meta">
+                <span class="mr-4"><i class="far fa-calendar-alt"></i> 15 Mars 2024</span>
+                <span><i class="far fa-clock"></i> Temps de lecture : 5 min</span>
+            </div>
+        </div>
+    </header>
 
-  <a class="btn btn-secondary" href="blog.html">Retour au blog</a>
-</main>
+    <!-- Contenu principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <article class="main-content">
+                    <!-- Introduction enrichie -->
+                    <p class="lead">
+                        Le métier d'ingénieur est souvent perçu à travers le prisme des compétences techniques pointues. 
+                        Pourtant, la réalité du terrain révèle une tout autre dimension : celle d'un professionnel complet, 
+                        capable de naviguer entre défis techniques, relations humaines et enjeux sociétaux.
+                    </p>
+
+                    <p>
+                        Aujourd'hui, l'ingénieur ne se contente plus d'appliquer des formules ou de maîtriser des outils. 
+                        Il est un <strong>architecte de solutions</strong>, un <strong>communicateur</strong> et un 
+                        <strong>leader</strong>. La formation d'ingénieur, au-delà des mathématiques et des sciences, 
+                        forge un état d'esprit unique et développe un ensemble de capacités essentielles qui font la différence 
+                        dans une carrière.
+                    </p>
+
+                    <!-- Section 1 : Résolution de problèmes -->
+                    <h2><i class="fas fa-puzzle-piece mr-3"></i>1. Résolution de problèmes et pensée critique</h2>
+                    <div class="skill-card">
+                        <h3><i class="fas fa-lightbulb"></i> L'art de décomposer la complexité</h3>
+                        <p>
+                            Face à un défi, l'ingénieur ne voit pas un obstacle, mais un système à analyser. La pensée critique 
+                            lui permet de poser les bonnes questions, de remettre en cause les évidences et d'explorer toutes les 
+                            dimensions d'un problème. Cette approche méthodique, combinée à une créativité structurée, conduit à 
+                            des solutions innovantes et robustes, bien au-delà de la simple application de recettes techniques.
+                        </p>
+                    </div>
+
+                    <!-- Section 2 : Communication et travail en équipe -->
+                    <h2><i class="fas fa-users mr-3"></i>2. Communication et travail en équipe</h2>
+                    <div class="skill-card">
+                        <h3><i class="fas fa-comments"></i> Le pont entre les mondes</h3>
+                        <p>
+                            L'époque de l'ingénieur isolé dans son bureau est révolue. Aujourd'hui, l'ingénieur collabore avec 
+                            des marketeurs, des financiers, des designers et des clients. Savoir vulgariser des concepts complexes, 
+                            écouter activement les besoins et convaincre avec empathie est devenu aussi crucial que la maîtrise 
+                            technique. L'ingénieur moderne est un <strong>traducteur</strong> entre la technologie et les humains.
+                        </p>
+                    </div>
+
+                    <!-- Section 3 : Créativité et innovation -->
+                    <h2><i class="fas fa-paint-brush mr-3"></i>3. Créativité et innovation</h2>
+                    <div class="skill-card">
+                        <h3><i class="fas fa-rocket"></i> L'audace de penser différemment</h3>
+                        <p>
+                            La technique ne dicte pas l'innovation, elle la rend possible. La véritable valeur d'un ingénieur 
+                            réside dans sa capacité à imaginer des solutions que personne n'avait envisagées, à sortir des cadres 
+                            établis. Que ce soit pour optimiser un processus, inventer un nouveau produit ou repenser un service, 
+                            la créativité est le moteur qui transforme la connaissance technique en valeur ajoutée.
+                        </p>
+                    </div>
+
+                    <!-- Section 4 : Apprentissage continu -->
+                    <h2><i class="fas fa-sync-alt mr-3"></i>4. Apprentissage continu et adaptabilité</h2>
+                    <div class="skill-card">
+                        <h3><i class="fas fa-graduation-cap"></i> La seule constante est le changement</h3>
+                        <p>
+                            Dans un monde où les technologies évoluent exponentiellement, ce qu'on apprend aujourd'hui peut être 
+                            obsolète demain. L'ingénieur d'exception cultive une <strong>curiosité insatiable</strong> et une 
+                            <strong>agilité intellectuelle</strong> qui lui permettent de se réinventer constamment. Plus qu'un 
+                            ensemble de connaissances, c'est une capacité d'apprentissage qui devient son atout le plus précieux.
+                        </p>
+                    </div>
+
+                    <!-- Section 5 : Éthique et responsabilité -->
+                    <h2><i class="fas fa-balance-scale mr-3"></i>5. Éthique et responsabilité</h2>
+                    <div class="skill-card">
+                        <h3><i class="fas fa-globe"></i> Construire un avenir durable</h3>
+                        <p>
+                            Les décisions techniques ont des impacts sociaux et environnementaux profonds. L'ingénieur d'aujourd'hui 
+                            doit intégrer ces dimensions dans sa réflexion. Choisir des matériaux durables, concevoir des systèmes 
+                            inclusifs, anticiper les conséquences à long terme : l'éthique n'est pas une contrainte, mais le 
+                            <strong>compas moral</strong> qui guide l'ingénieur vers des innovations réellement bénéfiques pour 
+                            l'humanité.
+                        </p>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <h2><i class="fas fa-medal mr-3"></i>Conclusion</h2>
+                    <div class="skill-card" style="border-left-color: #28a745;">
+                        <h3><i class="fas fa-star" style="color: #28a745;"></i> L'ingénieur complet</h3>
+                        <p>
+                            Devenir ingénieur, c'est donc bien plus qu'acquérir un savoir-faire technique. C'est embrasser une 
+                            posture intellectuelle et humaine qui allie rigueur et créativité, expertise et humilité, ambition et 
+                            responsabilité. Dans un monde en pleine mutation, ces qualités humaines sont ce qui distingue un bon 
+            technicien d'un <strong>grand ingénieur</strong>. La technique s'apprend, mais l'état d'esprit se cultive.
+                        </p>
+                    </div>
+
+                    <!-- Lien de retour -->
+                    <div class="text-center">
+                        <a href="blog.html" class="btn btn-retour">
+                            <i class="fas fa-arrow-left"></i>Retour au blog
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2024 BOUZAFFOUR Mortada. Tous droits réservés.</p>
+            <p class="mb-0">
+                <small>Suivez-moi sur 
+                    <a href="#" class="text-dark"><i class="fab fa-linkedin"></i></a> 
+                    <a href="#" class="text-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+                </small>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS et dépendances (optionnels, pour certains composants) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
