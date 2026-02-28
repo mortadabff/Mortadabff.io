@@ -1,28 +1,756 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bibliographie DataViz Géo — Blog</title>
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-  <link href="style.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bibliographie DataViz Géo — Blog</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
+        }
+        .navbar {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            font-weight: 700;
+            color: #2c3e50 !important;
+        }
+        .article-header {
+            background: linear-gradient(135deg, #20c997 0%, #0dcaf0 100%);
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+            border-radius: 0 0 50px 50px;
+        }
+        .article-header h1 {
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .article-meta {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+        }
+        .article-meta i {
+            margin-right: 5px;
+        }
+        .main-content {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
+        }
+        .main-content h2 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 2.5rem 0 1.5rem 0;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid #20c997;
+        }
+        .main-content h2:first-of-type {
+            margin-top: 0;
+        }
+        .main-content h3 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin: 1.5rem 0 1rem 0;
+        }
+        .main-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+        .main-content p.lead {
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #555;
+        }
+        
+        /* Introduction avec icônes */
+        .intro-stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: linear-gradient(135deg, #20c997 0%, #0dcaf0 100%);
+            border-radius: 15px;
+            color: white;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        /* Cartes de livres */
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .book-card {
+            display: flex;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.3s;
+            border: 1px solid #dee2e6;
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(32,201,151,0.15);
+            border-color: #20c997;
+        }
+        .book-cover {
+            width: 100px;
+            background: linear-gradient(135deg, #20c997 0%, #0dcaf0 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+        .book-info {
+            flex: 1;
+            padding: 1.2rem;
+        }
+        .book-info h4 {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            color: #2c3e50;
+        }
+        .book-author {
+            color: #20c997;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .book-desc {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        .book-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+        }
+        .book-tag {
+            background: #e9ecef;
+            padding: 0.2rem 0.6rem;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #495057;
+        }
+        
+        /* Cartes outils */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .tool-card {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #20c997;
+            transition: all 0.3s;
+        }
+        .tool-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(32,201,151,0.1);
+        }
+        .tool-card i {
+            font-size: 2rem;
+            color: #20c997;
+            margin-bottom: 1rem;
+        }
+        .tool-card h4 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        .tool-link {
+            display: inline-block;
+            margin-top: 1rem;
+            color: #20c997;
+            font-weight: 500;
+        }
+        .tool-link:hover {
+            text-decoration: none;
+            color: #0dcaf0;
+        }
+        
+        /* Catégories de ressources */
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 2rem 0;
+        }
+        .category-tab {
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            background: #e9ecef;
+            color: #495057;
+            font-weight: 500;
+            cursor: default;
+            transition: all 0.3s;
+        }
+        .category-tab.active {
+            background: #20c997;
+            color: white;
+        }
+        
+        /* Ressources en ligne */
+        .online-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .online-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .online-item:hover {
+            background: #e9ecef;
+        }
+        .online-icon {
+            width: 50px;
+            height: 50px;
+            background: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: #20c997;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .online-content {
+            flex: 1;
+        }
+        .online-content h5 {
+            margin-bottom: 0.2rem;
+            font-weight: 600;
+        }
+        .online-content p {
+            margin-bottom: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Principes de visualisation */
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .principle-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        .principle-card:hover {
+            border-bottom-color: #20c997;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .principle-card i {
+            font-size: 2rem;
+            color: #20c997;
+            margin-bottom: 1rem;
+        }
+        
+        /* Timeline d'apprentissage */
+        .learning-path {
+            margin: 2rem 0;
+            position: relative;
+        }
+        .path-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #20c997;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+            background: #f8f9fa;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+        }
+        .step-content h5 {
+            margin-bottom: 0.3rem;
+            color: #2c3e50;
+        }
+        
+        .btn-retour {
+            background: #20c997;
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 500;
+            border: none;
+            transition: background 0.3s, transform 0.2s;
+            margin-top: 2rem;
+        }
+        .btn-retour:hover {
+            background: #1ba87e;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(32,201,151,0.4);
+        }
+        .btn-retour i {
+            margin-right: 8px;
+        }
+        
+        footer {
+            background: white;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            text-align: center;
+            color: #666;
+            border-top: 1px solid #dee2e6;
+        }
+        
+        @media (max-width: 768px) {
+            .article-header h1 {
+                font-size: 2rem;
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="index.html">BOUZAFFOUR Mortada</a>
-</nav>
-<main class="container mt-5">
-  <h1>Bibliographie utile pour la Data Visualization des données géographiques</h1>
-  <p>Voici une sélection d'ouvrages et ressources pratiques pour la visualisation géographique :</p>
-  <ul>
-    <li>Colin Ware — "Information Visualization" (concepts généraux de visualisation)</li>
-    <li>Alberto Cairo — "The Functional Art" (storytelling visuel)</li>
-    <li>Hadley Wickham — "ggplot2: Elegant Graphics for Data Analysis" (visualisation en R)</li>
-    <li>Leaflet / D3.js / Mapbox GL docs et tutoriels pour cartographie web</li>
-    <li>Articles et tutoriels sur design cartographique (CartoDB/Mapbox blog)</li>
-  </ul>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-code mr-2"></i>BOUZAFFOUR Mortada
+            </a>
+        </div>
+    </nav>
 
-  <a class="btn btn-secondary" href="blog.html">Retour au blog</a>
-</main>
+    <!-- En-tête de l'article -->
+    <header class="article-header">
+        <div class="container text-center">
+            <h1>Bibliographie DataViz Géo : les ressources incontournables</h1>
+            <div class="article-meta">
+                <span class="mr-4"><i class="far fa-calendar-alt"></i> 5 Avril 2024</span>
+                <span><i class="far fa-clock"></i> Temps de lecture : 8 min</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenu principal -->
+    <main class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <article class="main-content">
+                    <!-- Introduction enrichie -->
+                    <p class="lead">
+                        La visualisation de données géographiques est un art subtil qui mêle cartographie traditionnelle, 
+                        design d'information et techniques interactives web. Pour maîtriser ce domaine, une bonne bibliothèque 
+                        (physique et numérique) est essentielle.
+                    </p>
+
+                    <p>
+                        Voici une sélection rigoureuse des ouvrages de référence, des ressources en ligne et des outils 
+                        qui vous aideront à progresser, que vous soyez débutant ou expert en data visualisation géographique.
+                    </p>
+
+                    <!-- Statistiques introductives -->
+                    <div class="intro-stats">
+                        <div class="stat-item">
+                            <div class="stat-number">15+</div>
+                            <div class="stat-label">Ouvrages référencés</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">20+</div>
+                            <div class="stat-label">Ressources en ligne</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">5</div>
+                            <div class="stat-label">Outils majeurs</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">3</div>
+                            <div class="stat-label">Niveaux de lecture</div>
+                        </div>
+                    </div>
+
+                    <!-- Section 1 : Ouvrages fondamentaux -->
+                    <h2><i class="fas fa-book mr-3"></i>1. Les classiques à avoir dans sa bibliothèque</h2>
+                    
+                    <div class="books-grid">
+                        <!-- Colin Ware -->
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>Information Visualization</h4>
+                                <div class="book-author">Colin Ware</div>
+                                <div class="book-desc">Les fondamentaux de la perception visuelle appliqués à la visualisation de données. Indispensable pour comprendre comment fonctionne l'œil humain.</div>
+                                <div class="book-tags">
+                                    <span class="book-tag">Perception</span>
+                                    <span class="book-tag">Théorie</span>
+                                    <span class="book-tag">Fondamental</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Alberto Cairo -->
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-paint-brush"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>The Functional Art</h4>
+                                <div class="book-author">Alberto Cairo</div>
+                                <div class="book-desc">L'art de raconter des histoires avec des données. Un mélange parfait entre théorie du design et pratique journalistique.</div>
+                                <div class="book-tags">
+                                    <span class="book-tag">Storytelling</span>
+                                    <span class="book-tag">Design</span>
+                                    <span class="book-tag">Journalisme</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Jacques Bertin -->
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-map"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>Sémiologie graphique</h4>
+                                <div class="book-author">Jacques Bertin</div>
+                                <div class="book-desc">Le classique français incontournable. Toute la théorie des variables visuelles et de la construction cartographique.</div>
+                                <div class="book-tags">
+                                    <span class="book-tag">Sémiologie</span>
+                                    <span class="book-tag">Cartographie</span>
+                                    <span class="book-tag">Référence</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hadley Wickham -->
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fab fa-r-project"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>ggplot2: Elegant Graphics</h4>
+                                <div class="book-author">Hadley Wickham</div>
+                                <div class="book-desc">La référence pour la visualisation avec R. Grammaire des graphiques appliquée à la data science.</div>
+                                <div class="book-tags">
+                                    <span class="book-tag">R</span>
+                                    <span class="book-tag">ggplot2</span>
+                                    <span class="book-tag">Pratique</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Edward Tufte -->
+                        <div class="book-card">
+                            <div class="book-cover">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="book-info">
+                                <h4>The Visual Display</h4>
+                                <div class="book-author">Edward Tufte</div>
+                                <div class="book-desc">Le classique sur l'excellence en visualisation. Principes de clarté, d'intégrité et de densité informationnelle.</div>
+                                <div class="book-tags">
+                                    <span class="book-tag">Classique</span>
+                                    <span class="book-tag">Théorie</span>
+                                    <span class="book-tag">Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2 : Catégories thématiques -->
+                    <h2><i class="fas fa-tags mr-3"></i>2. Par où commencer selon votre besoin</h2>
+                    
+                    <div class="category-tabs">
+                        <span class="category-tab active">Théorie générale</span>
+                        <span class="category-tab">Cartographie</span>
+                        <span class="category-tab">Outils techniques</span>
+                        <span class="category-tab">Storytelling</span>
+                        <span class="category-tab">Perception</span>
+                        <span class="category-tab">Web</span>
+                    </div>
+
+                    <!-- Section 3 : Ressources en ligne -->
+                    <h2><i class="fas fa-globe mr-3"></i>3. Ressources en ligne et tutoriels</h2>
+                    
+                    <div class="online-grid">
+                        <div class="online-item">
+                            <div class="online-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="online-content">
+                                <h5>CartoDB Blog</h5>
+                                <p>Tutoriels et bonnes pratiques cartographiques</p>
+                                <small>cartodb.com/blog</small>
+                            </div>
+                        </div>
+                        <div class="online-item">
+                            <div class="online-icon">
+                                <i class="fas fa-map-marked-alt"></i>
+                            </div>
+                            <div class="online-content">
+                                <h5>Mapbox GL Docs</h5>
+                                <p>Documentation complète pour cartes interactives</p>
+                                <small>docs.mapbox.com</small>
+                            </div>
+                        </div>
+                        <div class="online-item">
+                            <div class="online-icon">
+                                <i class="fab fa-js"></i>
+                            </div>
+                            <div class="online-content">
+                                <h5>D3.js Gallery</h5>
+                                <p>Exemples de visualisations avec D3</p>
+                                <small>d3js.org/examples</small>
+                            </div>
+                        </div>
+                        <div class="online-item">
+                            <div class="online-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="online-content">
+                                <h5>Leaflet Tutorials</h5>
+                                <p>Pas à pas pour cartes web légères</p>
+                                <small>leafletjs.com</small>
+                            </div>
+                        </div>
+                        <div class="online-item">
+                            <div class="online-icon">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            <div class="online-content">
+                                <h5>FlowingData</h5>
+                                <p>Blog de Nathan Yau sur la dataviz</p>
+                                <small>flowingdata.com</small>
+                            </div>
+                        </div>
+                        <div class="online-item">
+                            <div class="online-icon">
+                                <i class="fas fa-university"></i>
+                            </div>
+                            <div class="online-content">
+                                <h5>Cartographie & SIG</h5>
+                                <p>Ressources ENSG / IGN</p>
+                                <small>ensg.eu</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 4 : Outils pratiques -->
+                    <h2><i class="fas fa-wrench mr-3"></i>4. Boîte à outils DataViz Géo</h2>
+                    
+                    <div class="tools-grid">
+                        <div class="tool-card">
+                            <i class="fas fa-map"></i>
+                            <h4>QGIS</h4>
+                            <p>SIG open source avec des capacités de cartographie avancées et des plugins pour la dataviz.</p>
+                            <a href="#" class="tool-link">qgis.org <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="tool-card">
+                            <i class="fab fa-python"></i>
+                            <h4>Python (GeoPandas, Matplotlib)</h4>
+                            <p>Écosystème complet pour la manipulation et la visualisation de données géographiques.</p>
+                            <a href="#" class="tool-link">geopandas.org <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="tool-card">
+                            <i class="fab fa-r-project"></i>
+                            <h4>R (ggplot2, sf, tmap)</h4>
+                            <p>Grammaire des graphiques adaptée aux données spatiales avec des packages dédiés.</p>
+                            <a href="#" class="tool-link">r-spatial.org <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                        <div class="tool-card">
+                            <i class="fas fa-code"></i>
+                            <h4>D3.js / Leaflet</h4>
+                            <p>Bibliothèques JavaScript pour cartes interactives et visualisations sur mesure.</p>
+                            <a href="#" class="tool-link">d3js.org <i class="fas fa-external-link-alt"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Section 5 : Principes clés -->
+                    <h2><i class="fas fa-lightbulb mr-3"></i>5. Principes fondamentaux à retenir</h2>
+                    
+                    <div class="principles-grid">
+                        <div class="principle-card">
+                            <i class="fas fa-eye"></i>
+                            <h5>Perception</h5>
+                            <p>Respecter les lois de la perception visuelle (pré-attentive, couleurs, formes)</p>
+                        </div>
+                        <div class="principle-card">
+                            <i class="fas fa-layer-group"></i>
+                            <h5>Hiérarchie</h5>
+                            <p>Organiser l'information du plus important au moins important</p>
+                        </div>
+                        <div class="principle-card">
+                            <i class="fas fa-palette"></i>
+                            <h5>Couleurs</h5>
+                            <p>Utiliser des palettes adaptées (séquentielles, divergentes, qualitatives)</p>
+                        </div>
+                        <div class="principle-card">
+                            <i class="fas fa-project-diagram"></i>
+                            <h5>Simplification</h5>
+                            <p>Ne pas surcharger, généraliser si nécessaire</p>
+                        </div>
+                    </div>
+
+                    <!-- Section 6 : Parcours d'apprentissage -->
+                    <h2><i class="fas fa-graduation-cap mr-3"></i>6. Parcours d'apprentissage recommandé</h2>
+                    
+                    <div class="learning-path">
+                        <div class="path-step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h5>Fondamentaux théoriques</h5>
+                                <p>Lire Bertin (Sémiologie graphique) et Ware (Information Visualization) pour comprendre les bases.</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h5>Pratique avec un outil</h5>
+                                <p>Maîtriser un outil : QGIS pour la cartographie, ou R/Python pour la programmation.</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h5>Storytelling</h5>
+                                <p>Approfondir avec Cairo (The Functional Art) et étudier des exemples inspirants.</p>
+                            </div>
+                        </div>
+                        <div class="path-step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h5>Spécialisation</h5>
+                                <p>Selon votre domaine : web (D3.js/Leaflet) ou analyse avancée (ggplot2, cartographie thématique).</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 7 : Recommandations par niveau -->
+                    <h2><i class="fas fa-signal mr-3"></i>7. Recommandations par niveau</h2>
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="tool-card" style="border-left-color: #28a745;">
+                                <h4><i class="fas fa-seedling"></i> Débutant</h4>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-book text-success"></i> "The Functional Art" - Cairo</li>
+                                    <li><i class="fas fa-globe text-success"></i> Tutoriels Leaflet</li>
+                                    <li><i class="fas fa-wrench text-success"></i> QGIS débutant</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tool-card" style="border-left-color: #ffc107;">
+                                <h4><i class="fas fa-tree"></i> Intermédiaire</h4>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-book text-warning"></i> "ggplot2" - Wickham</li>
+                                    <li><i class="fas fa-globe text-warning"></i> D3.js tutorials</li>
+                                    <li><i class="fas fa-wrench text-warning"></i> GeoPandas / sf</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tool-card" style="border-left-color: #dc3545;">
+                                <h4><i class="fas fa-tree"></i> Avancé</h4>
+                                <ul class="list-unstyled">
+                                    <li><i class="fas fa-book text-danger"></i> "Information Visualization" - Ware</li>
+                                    <li><i class="fas fa-globe text-danger"></i> Mapbox GL / WebGL</li>
+                                    <li><i class="fas fa-wrench text-danger"></i> Visualisation 3D</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Conclusion -->
+                    <h2 class="mt-5"><i class="fas fa-gem mr-3"></i>Conclusion</h2>
+                    <div class="tool-card" style="border-left-color: #20c997; background: linear-gradient(135deg, #f8f9fa 0%, white 100%);">
+                        <p class="mb-0">
+                            La visualisation de données géographiques est un domaine en constante évolution. Les ouvrages classiques 
+                            fournissent les fondements théoriques indispensables, tandis que les ressources en ligne permettent 
+                            de rester à jour avec les dernières techniques et outils.
+                        </p>
+                        <p class="mb-0 mt-3">
+                            <strong>Notre conseil :</strong> Alternez lecture théorique et pratique régulière. Créez votre propre 
+                            bibliothèque de références et n'hésitez pas à explorer des exemples inspirants pour nourrir votre créativité.
+                        </p>
+                    </div>
+
+                    <!-- Lien de retour -->
+                    <div class="text-center">
+                        <a href="blog.html" class="btn btn-retour">
+                            <i class="fas fa-arrow-left"></i>Retour au blog
+                        </a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2024 BOUZAFFOUR Mortada. Tous droits réservés.</p>
+            <p class="mb-0">
+                <small>Suivez-moi sur 
+                    <a href="#" class="text-dark"><i class="fab fa-linkedin"></i></a> 
+                    <a href="#" class="text-dark"><i class="fab fa-github"></i></a>
+                    <a href="#" class="text-dark"><i class="fab fa-twitter"></i></a>
+                </small>
+            </p>
+        </div>
+    </footer>
 </body>
 </html>
